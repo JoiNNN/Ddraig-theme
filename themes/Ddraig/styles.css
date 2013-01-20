@@ -1150,23 +1150,15 @@ input[type=submit]:active {
 	width: 40px;
 	max-height: 40px;
 }
-.ht-link {
-	position: relative;
-}
+.ht-link { position: relative; }
 .ht-reply {
 	position: absolute;
 	right: 0;
 }
-.thread-stats {
-	padding-right: 12px;
-}
+.thread-stats { padding-right: 12px; }
 .thread-stats .major {
 	width: 98px;
 	font-size: 13px;
 }
-.thread-stats dt {
-	color: #666
-}
-.thread-stats .major dd {
-	font-size: 14px;
-}
+.thread-stats dt { color: #666 }
+.thread-stats .major dd { font-size: 14px; }
