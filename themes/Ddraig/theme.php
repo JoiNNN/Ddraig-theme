@@ -128,7 +128,7 @@ if (!TCPINFUSED && checkrights("I")) {
 			$(this).slideUp('slow',function(){
 				$(this).hide()
 			});
-		$.cookie('showWarn', 'hide', {expires: 1, path:'/' });
+		$.cookie('showWarn', 'hide', {expires: 1, path:'/'});
 		});
 	});
 	var showWarn = $.cookie('showWarn');
