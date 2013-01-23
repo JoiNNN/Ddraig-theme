@@ -36,7 +36,9 @@ function get_head_tags(){
 	echo "<style type='text/css'>.theme-width {max-width: ".THEME_MAXWIDTH.";min-width: ".THEME_MINWIDTH."}</style>\n";
 }
 
-add_handler("theme_output");
+if (function_exists('add_handler')) {
+	add_handler("theme_output"); 
+}
 
 function render_page($license=false) {
 global $aidlink, $locale, $settings, $main_style, $setting;
@@ -128,7 +130,7 @@ if (!TCPINFUSED && checkrights("I")) {
 			$(this).slideUp('slow',function(){
 				$(this).hide()
 			});
-		$.cookie('showWarn', 'hide', {expires: 1, path:'/' });
+		$.cookie('showWarn', 'hide', {expires: 1, path:'/'});
 		});
 	});
 	var showWarn = $.cookie('showWarn');
