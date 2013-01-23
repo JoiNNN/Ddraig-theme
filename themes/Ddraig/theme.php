@@ -36,7 +36,7 @@ function get_head_tags(){
 	echo "<style type='text/css'>.theme-width {max-width: ".THEME_MAXWIDTH.";min-width: ".THEME_MINWIDTH."}</style>\n";
 }
 
-if (function_exists('add_handler')) {
+if (function_exists("add_handler")) {
 	add_handler("theme_output"); 
 }
 
