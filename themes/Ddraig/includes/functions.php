@@ -103,9 +103,6 @@ function theme_output($output) {
 		"@forum_thread_ip' style='width:140px;white-space:nowrap'>@si",							//User IP in forum (viewthread.php)
 		"@<table cellpadding='0' cellspacing='1' width='100%' class='tbl-border (.*?)'>@i",		//No more cellspacing in forum's tables (needed for IE7 as it can't apply CSS rules to overwrite cellspacing) (index.php|viewforum.php|viewthread.php)
 		"@<td colspan='2' class='tbl1 forum_thread_post_space' style='height:10px'></td>@si",	//Space between forum posts (viewthread.php)
-		"@src='(.*?)/forum/folderlock.png'(.*?)<td width='100%' class='(.*?)'>(.*?)<a@si",		//Locked thread tag (viewforum.php)
-		"@src='(.*?)/forum/(folder|foldernew|folderlock)(.*?)<td width='100%' class='(.*?)'>(.*?)<a (.*?)thread_id=(.*?)>(.*?)</a>@si", //Thread title class and thread preview link (viewforum.php)
-		"@\(".$locale['455']."(.*?)\)@i",														//Thread pages numbers (viewforum.php)
 		"@<hr />\n<span class='small'>(.*?)</span>@si",											//Edit note in threads (viewthread.php)
 		"@</div>\n<br /><div class='edit_reason'>(.*?)</div>@si"								//Edit reason (viewthread.php)
 		);
@@ -122,18 +119,24 @@ function theme_output($output) {
 		"forum_thread_ip'>",
 		"<table cellpadding='0' cellspacing='0' width='100%' class='tbl-border $1'>",
 		"<td colspan='2' class='tbl1 forum_thread_post_space'></td>",
-		"src='$1/forum/folderlock.png'$2<td width='100%' class='$3 thread-locked'>$4<span class='tag red'>".$locale['locked']."</span> <a",
-		"src='$1/forum/$2$3<td width='100%' class='$4'>$5<a class='thread-title' $6thread_id=$7>$8</a>".((THREAD_PREV == 1) ? "<a title='".$locale['prev_thread']."' class='preview-link expand flright' $6thread_id=$7></a>" : ""),
-		"<span class='pages small'>".$locale['455']."$1</span>",
 		"<br /><div class='post-edited small'>$1</div>",
 		"<div class='edit_reason'>$1</div></div>"
 		);
 
-		//Thread Replies/Views
 		if ($page == "viewforum.php") {
+		 //Locked thread tag (viewforum.php)
+		$searchforum[] .= "@src='(.*?)/forum/folderlock.png'(.*?)<td width='100%' class='(.*?)'>(.*?)<a@si";
+		$replaceforum[] .= "src='$1/forum/folderlock.png'$2<td width='100%' class='$3 thread-locked'>$4<span class='tag red'>".$locale['locked']."</span> <a";
+		//Thread pages numbers (viewforum.php)	
+		$searchforum[] .= "@\(".$locale['455']."(.*?)\)@i";
+		$replaceforum[] .= "<span class='pages small'>".$locale['455']."$1</span>";
+		//Thread title class and thread preview link (viewforum.php)
+		$searchforum[] .= "@src='(.*?)/forum/(folder|foldernew|folderlock)(.*?)<td width='100%' class='(.*?)'>(.*?)<a (.*?)thread_id=(.*?)>(.*?)</a>@si";
+		$replaceforum[] .= "src='$1/forum/$2$3<td width='100%' class='$4'>$5<a class='thread-title' $6thread_id=$7>$8</a>".((THREAD_PREV == 1) ? "<a title='".$locale['prev_thread']."' class='preview-link expand flright' $6thread_id=$7></a>" : "");
+		//Thread Replies/Views
 		$searchforum[] .= "@<td align='center' width='1%' class='tbl1' style='white-space:nowrap'>(.*?)</td>\n<td align='center' width='1%' class='tbl2' style='white-space:nowrap'>(.*?)</td>@si";
-		$searchforum[] .= "@<td class='tbl2 forum-caption' width='1%' style='white-space:nowrap' align='center' >".$locale['global_045']."</td>\n<td class='tbl2 forum-caption' width='1%' style='white-space:nowrap' align='center'>".$locale['global_046']."</td>@si";
 		$replaceforum[] .= "<td width='2%' class='tbl1 thread-stats'><dl class='major'><dt class='flleft'>Replies: </dt><dd class='flright'>$2</dd></dl><dl class='minor small'><dt class='flleft'>Views: </dt><dd class='flright'>$1</dd></dl></td>";
+		$searchforum[] .= "@<td class='tbl2 forum-caption' width='1%' style='white-space:nowrap' align='center' >".$locale['global_045']."</td>\n<td class='tbl2 forum-caption' width='1%' style='white-space:nowrap' align='center'>".$locale['global_046']."</td>@si";
 		$replaceforum[] .= "<td class='tbl2 forum-caption' width='1%' align='center'>".$locale['global_046']." / ".$locale['global_045']."</td>";
 		}
 
