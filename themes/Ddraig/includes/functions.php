@@ -124,7 +124,7 @@ function theme_output($output) {
 		);
 
 		if ($page == "viewforum.php") {
-		 //Locked thread tag (viewforum.php)
+		//Locked thread tag (viewforum.php)
 		$searchforum[] .= "@src='(.*?)/forum/folderlock.png'(.*?)<td width='100%' class='(.*?)'>(.*?)<a@si";
 		$replaceforum[] .= "src='$1/forum/folderlock.png'$2<td width='100%' class='$3 thread-locked'>$4<span class='tag red'>".$locale['locked']."</span> <a";
 		//Thread pages numbers (viewforum.php)	
