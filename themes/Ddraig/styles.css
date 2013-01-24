@@ -51,7 +51,7 @@ hr {
 	margin: 6px 0;
 }
 hr.side-hr {
-	margin: 2px 0 8px 0;
+	margin: 2px 0;
 }
 /* Links */
 a {text-decoration: none;outline: none;color: #226d9d;}
