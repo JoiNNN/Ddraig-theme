@@ -273,7 +273,6 @@ h2.panelcap {
 
 #navigation a span {
 	line-height: 1.7em;
-	padding: 0;
 	cursor: pointer; /* IE7 */
 }
 #navigation a {padding-left: 2px;}
