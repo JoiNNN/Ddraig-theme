@@ -239,7 +239,7 @@ if (REL_TIME == 1) {
 //Render News
 function render_news($subject, $news, $info) {
 global $locale, $settings;
-opentable($subject, "post", $info, "N");
+	opentable($subject, "post", $info, "N");
 	echo "<ul class='item-info news-info'>\n";
 	//Author
 	echo "<li class='author'>".profile_link($info['user_id'], $info['user_name'], $info['user_status'])."</li>\n";
@@ -269,13 +269,13 @@ opentable($subject, "post", $info, "N");
 		echo "<div class='readmore flright'><a href='".BASEDIR."news.php?readmore=".$info['news_id']."' class='button'><span class='rightarrow icon'>".$locale['global_072']."</span></a></div>\n";
 	}
 	echo "<!--news_id-".$info['news_id']."_end-->";
-closetable();
+	closetable();
 }
 
 //Render Articles
 function render_article($subject, $article, $info) {
 global $locale, $settings;
-opentable($subject, "article", $info, "A");
+	opentable($subject, "article", $info, "A");
 	echo "<ul class='item-info article-info'>\n";
 	//Author
 	echo "<li class='author'>".profile_link($info['user_id'], $info['user_name'], $info['user_status'])."</li>\n";
@@ -297,51 +297,49 @@ opentable($subject, "article", $info, "A");
 	//The message
 	echo ($info['article_breaks'] == "y" ? nl2br($article) : $article)."\n";
 	echo "<!--article_id-".$info['article_id']."_end-->";
-closetable();
+	closetable();
 }
 
 //Render comments
 function render_comments($c_data, $c_info){
-		global $locale, $settings;
-		if ($c_info['admin_link'] !== FALSE) {
-				echo "<div class='comment-admin floatfix'>".$c_info['admin_link']."</div>\n";
+global $locale, $settings;
+	if ($c_info['admin_link'] !== FALSE) {
+		echo "<div class='comment-admin floatfix'>".$c_info['admin_link']."</div>\n";
+	}
+	if (!empty($c_data)){
+		echo "<div class='user-comments floatfix'>\n";
+		$c_makepagenav = '';
+		if ($c_info['c_makepagenav'] !== FALSE) { 
+			echo $c_makepagenav = "<div style='text-align:center;margin-bottom:5px;'>".$c_info['c_makepagenav']."</div>\n"; 
+		}
+		foreach($c_data as $data) {
+			echo "<div id='c".$data['comment_id']."' class='comment'>\n";
+			//User avatar
+			if ($settings['comments_avatar'] == "1") { echo "<span class='user_avatar'>".$data['user_avatar']."</span>\n"; $noav = ""; } else { $noav = "noavatar"; }
+			echo "<div class='tbl1 comment-wrap $noav'>";
+			//Pointer tip
+			if ($settings['comments_avatar'] == "1") { echo "<div class='pointer'><span>&lt;</span></div>\n"; }
+			//Options
+			echo "<div class='comment-info'>";
+			if ($data['edit_dell'] !== FALSE) { 
+				echo "<div class='actions flright'>".$data['edit_dell']."\n</div>\n";
 			}
-		if (!empty($c_data)){
-			echo "<div class='user-comments floatfix'>\n";
- 			$c_makepagenav = '';
- 			if ($c_info['c_makepagenav'] !== FALSE) { 
-				echo $c_makepagenav = "<div style='text-align:center;margin-bottom:5px;'>".$c_info['c_makepagenav']."</div>\n"; 
-			}
- 			foreach($c_data as $data) {
-				echo "<div id='c".$data['comment_id']."' class='comment'>\n";
-					//User avatar
-					if ($settings['comments_avatar'] == "1") { echo "<span class='user_avatar'>".$data['user_avatar']."</span>\n"; $noav = ""; } else { $noav = "noavatar"; }
-					echo "<div class='tbl1 comment-wrap $noav'>";
-					//Pointer tip
-					if ($settings['comments_avatar'] == "1") { echo "<div class='pointer'><span>&lt;</span></div>\n"; }
-					//Options
-					echo "<div class='comment-info'>";
-					if ($data['edit_dell'] !== FALSE) { 
-						echo "<div class='actions flright'>".$data['edit_dell']."\n</div>\n";
-					}
-					//Info
-					echo "<a class='scroll' href='".FUSION_REQUEST."#c".$data['comment_id']."'>#".$data['i']."</a> |\n";
-					echo "<span class='comment-name'>".$data['comment_name']."</span>\n";
-					echo "<span class='small'>".$data['comment_datestamp']."</span></div>\n";
-					//The message
-					echo "<div class='comment-msg'>".$data['comment_message']."</div></div></div>\n";
-			}
-
-			echo $c_makepagenav;
-			
-			echo "</div>\n";
-		} else {
-			echo "<div class='nocomments-message spacer'>".$locale['c101']."</div>\n";
-		} 
+			//Info
+			echo "<a class='scroll' href='".FUSION_REQUEST."#c".$data['comment_id']."'>#".$data['i']."</a> |\n";
+			echo "<span class='comment-name'>".$data['comment_name']."</span>\n";
+			echo "<span class='small'>".$data['comment_datestamp']."</span></div>\n";
+			//The message
+			echo "<div class='comment-msg'>".$data['comment_message']."</div></div></div>\n";
+		}
+		echo $c_makepagenav;
+		echo "</div>\n";
+	} else {
+		echo "<div class='nocomments-message spacer'>".$locale['c101']."</div>\n";
+	} 
 }
 
 function itemoptions2($item_type, $item_id, $info) {
-	global $locale, $aidlink; $res = "";
+global $locale, $aidlink; $res = "";
 	if ($item_type == "N") {
 		//Edit
 		if (iADMIN && checkrights($item_type)) { $res .= "<span class='edit'><!--article_news_opts--> <a href='".ADMIN."news.php".$aidlink."&amp;action=edit&amp;news_id=".$item_id."'><img src='".get_image("edit")."' alt='".$locale['global_076']."' title='".$locale['global_076']."' width='16' height='16' style='border:0;' /></a></span>\n"; }
@@ -420,7 +418,6 @@ global $panel_collapse, $p_data; $panel_collapse = $collapse;
 
 function closeside() {
 global $panel_collapse;
-
 	echo "</div>\n";
 	echo "</div>\n";
 	if ($panel_collapse == true) { echo "</div>\n"; }
