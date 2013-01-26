@@ -666,6 +666,7 @@ tr:last-child .preview.expanded {
 }
 .forum-caption {
 	padding: 8px;
+	white-space: nowrap;
 }
 .tbl {padding: 0 3px;}
 .bbcode {

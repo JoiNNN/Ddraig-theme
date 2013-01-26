@@ -199,7 +199,7 @@ add_to_footer("<script type='text/javascript'>/*<![CDATA[*/
 			el.removeClass('expand').addClass('loading');
 			$.ajax({url:'".THEME."includes/th_preview.php?thread_id=' + trgt,
 				success: function(result){
-					thistr.after('<tr><td id=\'thid' + trgt + '\' class=\'preview expanded loaded\' colspan=\'6\'>' + result + '<\/td><\/tr>');
+					thistr.after('<tr><td id=\'thid' + trgt + '\' class=\'preview expanded loaded\' colspan=\'5\'>' + result + '<\/td><\/tr>');
 					thistr.addClass('previewing');
 					el.removeClass('loading').addClass('close').attr('title', close_preview);
 					$('#thid' + trgt).children('div').stop(true, true).slideToggle('fast');
