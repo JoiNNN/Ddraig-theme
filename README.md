@@ -7,8 +7,7 @@ A Simple and Clean theme
 
 Features:
 
-• this theme features a Theme Control Panel. Is basically an infusion which gives you the ability to change theme
-settings like width without having to alter any theme files.
+• this theme features a Theme Control Panel. Is basically an infusion which gives you the ability to change theme settings like width without having to alter any theme files.
 
 • the search field in the header. It will automatically add the option to search the website area you are on.
 
@@ -24,11 +23,7 @@ settings like width without having to alter any theme files.
 
 • "edit note" on edited posts is better and nicer formatted
 
-• a scroll-to-top script that can be reused for any anchor to do a smooth scroll to it
-
-to reuse the script add class='scroll' to the link or class='scroll clean' if you don't want the #hash to be added
-
-to url after scrolling is done
+• a scroll-to-top script that can be reused for any anchor to do a smooth scroll to it to reuse the script add class='scroll' to the link or class='scroll clean' if you don't want the #hash to be added to url after scrolling is done
 
 • several SEO optimizations
 
