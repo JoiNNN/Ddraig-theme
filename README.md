@@ -6,7 +6,6 @@ Ddraig theme for PHP-Fusion 7.02.05
 Features:
 
 • this theme features a Theme Control Panel. Is basically an infusion which gives you the ability to change theme settings like width without having to alter any theme files.
-
 • the search field in the header. It will automatically add the option to search the website area you are on.
 
 • avatar for the last user which made the post in a forum or thread.
