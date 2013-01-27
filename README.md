@@ -15,7 +15,7 @@ Features:
 
 • winter mode, adds some winter/snow styling effects to the theme
 
-• the "sticky thread" was replaced icon with a nice "PINNED" green tag
+• the "sticky thread" icon was replaced with a nice "PINNED" green tag
 
 • added to Locked threads a "LOCKED" red tag
 
