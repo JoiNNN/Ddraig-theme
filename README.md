@@ -1,4 +1,4 @@
-Ddraig-theme
+Ddraig Theme v1.0.2
 ============
 -------------
 Ddraig theme for PHP-Fusion 7.02.05
