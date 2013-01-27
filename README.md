@@ -3,9 +3,6 @@ Ddraig Theme v1.0.2
 Ddraig theme for PHP-Fusion 7.02.05
 -----------------------------------
 
-A Simple and Clean theme
-++++++++++++++++++++++++++++++
-
 Features:
 
 • this theme features a Theme Control Panel. Is basically an infusion which gives you the ability to change theme settings like width without having to alter any theme files.
