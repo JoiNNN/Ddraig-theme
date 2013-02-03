@@ -1167,7 +1167,7 @@ input[type=submit]:active {
 .thread-stats dt { color: #666 }
 .thread-stats .major dd { font-size: 14px; }
 
-/* Profile page user groups styling */
+/* Profile page - user groups styling */
 .profile.tbl-border .tbl1 > div[style="float:left"] {
 	width: 40%;
 	margin-bottom: 3px;
