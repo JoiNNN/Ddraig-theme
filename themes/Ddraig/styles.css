@@ -547,6 +547,10 @@ code, pre {
 	font-family: monospace;
 	font-size: 1em;
 }
+code li {
+	list-style-position: outside;
+	margin-left: 12px;
+}
 .poll {
 	height: 16px;
 	background: url(images/btn.png) repeat-x top #178EEA;
@@ -1157,7 +1161,7 @@ input[type=submit]:active {
 }
 .thread-stats { padding-right: 12px; }
 .thread-stats .major {
-	width: 98px;
+	min-width: 98px;
 	font-size: 13px;
 }
 .thread-stats dt { color: #666 }
