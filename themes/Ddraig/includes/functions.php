@@ -134,10 +134,10 @@ function theme_output($output) {
 		$searchforum[] .= "@src='(.*?)/forum/(folder|foldernew|folderlock)(.*?)<td width='100%' class='(.*?)'>(.*?)<a (.*?)thread_id=(.*?)>(.*?)</a>@si";
 		$replaceforum[] .= "src='$1/forum/$2$3<td width='100%' class='$4'>$5<a class='thread-title' $6thread_id=$7>$8</a>".((THREAD_PREV == 1) ? "<a title='".$locale['prev_thread']."' class='preview-link expand flright' $6thread_id=$7></a>" : "");
 		//Thread Replies/Views
-		$searchforum[] .= "@<td align='center' width='1%' class='tbl1' style='white-space:nowrap'>(.*?)</td>\n<td align='center' width='1%' class='tbl2' style='white-space:nowrap'>(.*?)</td>@si";
-		$replaceforum[] .= "<td width='2%' class='tbl1 thread-stats'><dl class='major'><dt class='flleft'>".$locale['global_046'].": </dt><dd class='flright'>$2</dd></dl><dl class='minor small'><dt class='flleft'>".$locale['global_045'].": </dt><dd class='flright'>$1</dd></dl></td>";
 		$searchforum[] .= "@<td class='tbl2 forum-caption' width='1%' style='white-space:nowrap' align='center' >".$locale['global_045']."</td>\n<td class='tbl2 forum-caption' width='1%' style='white-space:nowrap' align='center'>".$locale['global_046']."</td>@si";
 		$replaceforum[] .= "<td class='tbl2 forum-caption' width='1%' align='center'>".$locale['global_046']." / ".$locale['global_045']."</td>";
+		$searchforum[] .= "@<td align='center' width='1%' class='tbl1' style='white-space:nowrap'>(.*?)</td>\n<td align='center' width='1%' class='tbl2' style='white-space:nowrap'>(.*?)</td>@si";
+		$replaceforum[] .= "<td width='2%' class='tbl1 thread-stats'><dl class='major'><dt class='flleft'>".$locale['global_046'].": </dt><dd class='flright'>$2</dd></dl><dl class='minor small'><dt class='flleft'>".$locale['global_045'].": </dt><dd class='flright'>$1</dd></dl></td>";
 		}
 
 		$output = preg_replace($searchforum, $replaceforum, $output);
