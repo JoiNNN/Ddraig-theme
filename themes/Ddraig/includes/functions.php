@@ -90,38 +90,53 @@ function theme_output($output) {
 
 	//Replacements that only occur in forums should be searched for only when viewing the forums
 	if ($inforum && in_array($page, array("index.php", "viewforum.php", "viewthread.php", "post.php"))) {
+	
 		$searchforum = array(
-		"@><img src='reply' alt='(.*?)' style='border:0px' />@si",								//Reply button (viewthread.php)
-		"@><img src='newthread' alt='(.*?)' style='border:0px;?' />@si",						//New thread button (viewforum.php|viewthread.php)
-		"@><img src='web' alt='(.*?)' style='border:0;vertical-align:middle' />@si",			//Website button (viewthread.php)
-		"@><img src='pm' alt='(.*?)' style='border:0;vertical-align:middle' />@si",				//PM button (viewthread.php)
-		"@><img src='quote' alt='(.*?)' style='border:0px;vertical-align:middle' />@si",		//Quote button (viewthread.php)
-		"@><img src='forum_edit' alt='(.*?)' style='border:0px;vertical-align:middle' />@si",	//Edit button (viewthread.php)
-		"@<input (.*?) name='move_posts' value='(.*?)' (.*?) />@i",								//Move posts button (viewthread.php)
+		"@><img src='newthread' alt='(.*?)' style='border:0px;?' />@si",							//New thread button (viewforum.php|viewthread.php)
 		"@<input (.*?) name='(delete_posts|delete_threads)' value='(.*?)' class='(.*?)' (.*?) />@i",//Delete posts button (viewforum.php|viewthread.php)
-		"@forum_thread_user_info' style='width:140px'>\n<img src='(.*?)' alt='(.*?)' />@si",	//User avatar in forum (viewthread.php)
-		"@forum_thread_ip' style='width:140px;white-space:nowrap'>@si",							//User IP in forum (viewthread.php)
-		"@<table cellpadding='0' cellspacing='1' width='100%' class='tbl-border (.*?)'>@i",		//No more cellspacing in forum's tables (needed for IE7 as it can't apply CSS rules to overwrite cellspacing) (index.php|viewforum.php|viewthread.php)
-		"@<td colspan='2' class='tbl1 forum_thread_post_space' style='height:10px'></td>@si",	//Space between forum posts (viewthread.php)
-		"@<hr />\n<span class='small'>(.*?)</span>@si",											//Edit note in threads (viewthread.php)
-		"@</div>\n<br /><div class='edit_reason'>(.*?)</div>@si"								//Edit reason (viewthread.php)
+		"@<table cellpadding='0' cellspacing='1' width='100%' class='tbl-border (.*?)'>@i",			//No more cellspacing in forum's tables (needed for IE7 as it can't apply CSS rules to overwrite cellspacing) (index.php|viewforum.php|viewthread.php)
 		);
-		$replaceforum = array(
-		" class='button big'><span class='reply-button icon'>$1</span>",
+		$replaceforum = array(		
 		" class='button big'><span class='newthread-button icon'>$1</span>",
-		" class='button' rel='nofollow' title='$1'><span class='web-button icon'>Web</span>",
-		" class='button' title='$1'><span class='pm-button icon'>PM</span>",
-		" class='button' title='$1'><span class='quote-button icon'>$1</span>",
-		" class='negative button' title='$1'><span class='edit-button icon'>$1</span>",
-		"<button $1 name='move_posts' $3><span class='move-button icon'>$2</span></button>&nbsp;",
-		"<button $1 class='$4 negative' name='$2' $5><span class='del-button icon'>$3</span></button>",
-		"forum_thread_user_info'><div class='user-avatar'><img class='avatar' src='$1' alt='$2' /></div>",
-		"forum_thread_ip'>",
+		"<button $1 class='$4 negative' name='$2' $5><span class='del-button icon'>$3</span></button>",	
 		"<table cellpadding='0' cellspacing='0' width='100%' class='tbl-border $1'>",
-		"<td colspan='2' class='tbl1 forum_thread_post_space'></td>",
-		"<br /><div class='post-edited small'>$1</div>",
-		"<div class='edit_reason'>$1</div></div>"
 		);
+
+		if ($page == "viewthread.php") {
+		//Reply button (viewthread.php)
+		$searchforum[] .= "@><img src='reply' alt='(.*?)' style='border:0px' />@si";
+		$replaceforum[] .= " class='button big'><span class='reply-button icon'>$1</span>";
+		//Website button (viewthread.php)
+		$searchforum[] .= "@><img src='web' alt='(.*?)' style='border:0;vertical-align:middle' />@si";
+		$replaceforum[] .= " class='button' rel='nofollow' title='$1'><span class='web-button icon'>Web</span>";
+		//PM button (viewthread.php)
+		$searchforum[] .= "@><img src='pm' alt='(.*?)' style='border:0;vertical-align:middle' />@si";
+		$replaceforum[] .= " class='button' title='$1'><span class='pm-button icon'>PM</span>";
+		//Quote button (viewthread.php)
+		$searchforum[] .= "@><img src='quote' alt='(.*?)' style='border:0px;vertical-align:middle' />@si";
+		$replaceforum[] .= " class='button' title='$1'><span class='quote-button icon'>$1</span>";
+		//Edit button (viewthread.php)
+		$searchforum[] .= "@><img src='forum_edit' alt='(.*?)' style='border:0px;vertical-align:middle' />@si";
+		$replaceforum[] .= " class='negative button' title='$1'><span class='edit-button icon'>$1</span>";
+		//Move posts button (viewthread.php)
+		$searchforum[] .= "@<input (.*?) name='move_posts' value='(.*?)' (.*?) />@i";
+		$replaceforum[] .= "<button $1 name='move_posts' $3><span class='move-button icon'>$2</span></button>&nbsp;";
+		//User avatar in forum (viewthread.php)
+		$searchforum[] .= "@forum_thread_user_info' style='width:140px'>\n<img src='(.*?)' alt='(.*?)' />@si";
+		$replaceforum[] .= "forum_thread_user_info'><div class='user-avatar'><img class='avatar' src='$1' alt='$2' /></div>";
+		//User IP in forum (viewthread.php)
+		$searchforum[] .= "@forum_thread_ip' style='width:140px;white-space:nowrap'>@si";
+		$replaceforum[] .= "forum_thread_ip'>";
+		//Space between forum posts (viewthread.php)
+		$searchforum[] .= "@<td colspan='2' class='tbl1 forum_thread_post_space' style='height:10px'></td>@si";
+		$replaceforum[] .= "<td colspan='2' class='tbl1 forum_thread_post_space'></td>";
+		//Edit note in threads (viewthread.php)
+		$searchforum[] .= "@<hr />\n<span class='small'>(.*?)</span>@si";
+		$replaceforum[] .= "<br /><div class='post-edited small'>$1</div>";
+		//Edit reason (viewthread.php)
+		$searchforum[] .= "@</div>\n<br /><div class='edit_reason'>(.*?)</div>@si";
+		$replaceforum[] .= "<div class='edit_reason'>$1</div></div>";
+		}
 
 		if ($page == "viewforum.php") {
 		//Locked thread tag (viewforum.php)
