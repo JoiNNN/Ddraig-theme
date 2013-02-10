@@ -505,7 +505,7 @@ input[type=text]:hover, input[type=text]:focus
 }
 .quote.extended {
 	background: #f8fbfd;
-	padding: 0 2px 2px 10px;
+	padding: 0 0 2px 10px;
 }
 .quote p.citation {
 	margin: 0 0 0 -10px;
