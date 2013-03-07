@@ -108,7 +108,7 @@ a:hover {color: #e79300;}
 	white-space: nowrap;
 }
 .navigation li.home a {
-	text-indent: -5000px;
+	text-indent: -5000em;
 	min-width: 22px;
 	background-image: url(images/home.png);
 	background-position: center center;
