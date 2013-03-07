@@ -61,6 +61,7 @@ $links = showsublinks("","link");
 	}
 	//add class last-link
 	$links = preg_replace("#(.*<li class=')link( current-link)?( home)?('.*)#si", "$1link last-link$2$3$4", $links, 1);
+	$links = preg_replace("#<ul>#i", "<ul class='navigation'>", $links, 1);
 	echo "<div id='header' class='clearfix'>";
 	echo "<div id='mainheader' class='center clearfix'>";
 
@@ -84,7 +85,14 @@ $links = showsublinks("","link");
 		echo "<span class='top-snow'></span>";
 		add_to_head("<link type='text/css' href='".THEME."css/winter.css' rel='stylesheet' media='screen' />");
 	}
-	echo "</div><div id='subheader'><div class='navigation theme-width center'>".$links."</div></div></div>";
+	echo "</div>";
+
+	echo "<div id='subheader'>";
+		//Navigation links
+		echo "<div class='theme-width clearfix center'>".$links."</div>";
+	echo "</div>";
+
+	echo "</div>";
 	echo "<div id='main' class='$main_style theme-width center clearfix'>";
 
 //Panels structure

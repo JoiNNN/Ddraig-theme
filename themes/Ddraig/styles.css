@@ -65,44 +65,40 @@ a:hover {color: #e79300;}
 #main-logo {
 	position: absolute;
 }
-#subheader ul,
-#subheader li,
-#userbar ul,
-#userbar li,
+
 #navigation ul,
 #navigation li {margin: 0}
 
 #subheader {
-	overflow: hidden;
 	background-color: #444;
 }
-#subheader li {
+.navigation li {
 	margin: 0 8px;
 	display: block;
 	float: left;
 }
-#subheader li a {
+.navigation li a {
 	display: block;
 	line-height: 26px;
 	max-width: 200px;
 	min-width: 60px;
 	padding: 8px 6px;
 }
-#subheader li a:hover {
+.navigation li a:hover {
 	text-decoration: underline;
 }
-#subheader li.current-link a:hover,
-#subheader li a.active,
-#subheader li.current-link a {
+.navigation li.current-link a:hover,
+.navigation li a.active,
+.navigation li.current-link a {
 	background: url(images/pointer.png) center 35px no-repeat;
 	font-weight: bold;
 }
-#subheader ul li.first-link {margin-left: 0}
-#subheader ul li.last-link {margin-right: 0}
-#subheader li a span {
+.navigation li.first-link {margin-left: 0}
+.navigation li.last-link {margin-right: 0}
+.navigation li a span {
 	font-size: 14px;
 }
-#subheader a {
+.navigation a {
 	color: #fff;
 	text-decoration: none;
 	cursor: pointer; /* IE7 */
@@ -111,14 +107,14 @@ a:hover {color: #e79300;}
 	text-align: center;
 	white-space: nowrap;
 }
-#subheader li.home a {
+.navigation li.home a {
 	text-indent: -5000px;
 	min-width: 22px;
 	background-image: url(images/home.png);
 	background-position: center center;
 	background-repeat: no-repeat;
 }
-#subheader li.home {
+.navigation li.home {
 	margin-right: 0;
 }
 #container {
