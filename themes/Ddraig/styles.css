@@ -103,7 +103,6 @@ a:hover {color: #e79300;}
 	text-decoration: none;
 	cursor: pointer; /* IE7 */
 	font-size: 14px;
-	line-height: 0px;
 	text-align: center;
 	white-space: nowrap;
 }
