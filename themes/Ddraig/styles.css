@@ -98,7 +98,7 @@ a:hover {color: #e79300;}
 .navigation li a span {
 	font-size: 14px;
 }
-.navigation a {
+.navigation li a {
 	color: #fff;
 	text-decoration: none;
 	cursor: pointer; /* IE7 */
