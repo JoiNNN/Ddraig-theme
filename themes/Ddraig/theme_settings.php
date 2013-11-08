@@ -44,7 +44,7 @@ define("TCPINFUSED", FALSE);
 	$winter_mode			= 0;	//Boolean (1/0)
 	$search_in_header		= 1;	//Boolean (1/0)
 	$relative_time			= 1;	//Boolean (1/0)
-	$relative_time_elements	= ".dated, .shoutboxdate, .last-post-date"; //Text (News, Shoutbox, Last post)
+	$relative_time_elements	= ".dated, .shoutboxdate, .last-post-date"; //Text (CSS classes - News, Shoutbox, Last post)
 	$thread_preview			= 1;	//Boolean (1/0)
 	$latest_news 			= 1;	//Boolean (1/0)
 	$latest_articles 		= 0;	//Boolean (1/0)
