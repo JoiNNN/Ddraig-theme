@@ -1,7 +1,7 @@
 <?php
 /*-------------------------------------------------------+
 | PHP-Fusion Content Management System
-| Copyright (C) 2002 - 2013 Nick Jones
+| Copyright (C) 2002 - 2014 Nick Jones
 | http://www.php-fusion.co.uk/
 +--------------------------------------------------------+
 | Filename: theme_settings.php
@@ -17,6 +17,9 @@
 +--------------------------------------------------------*/
 if (!defined("IN_FUSION")) { die("Access Denied"); }
 
+// Check if TCP is infused
+define("TCPINFUSED", (bool)dbrows(dbquery("SELECT * FROM ".DB_INFUSIONS." WHERE inf_folder='theme_control_panel'")) ? TRUE : FALSE);
+
 function getsettings($setting_inf) {
 	$settings_arr = array();
 	$set_result = dbquery("SELECT settings_name, settings_value FROM ".DB_SETTINGS_INF." WHERE settings_inf='".$setting_inf."'");
@@ -30,11 +33,11 @@ function getsettings($setting_inf) {
 	}
 }
 
-$setting = getsettings('ddraig_theme_tcpanel');
+$setting = getsettings('ddraig_theme_settings');
 
 if (!$setting) {
 //If TCP is not infused use these settings
-define("TCPINFUSED", FALSE);
+define("SETTINGS_INSTALLED", FALSE);
 	//Lines below can be changed as an alternative to TCP
 	$theme_maxwidth 		= 1300;	//Integer (Must be higher than $theme_minwidth)
 	$theme_minwidth 		= 986;	//Integer (Must be lower or equal to $theme_maxwidth)
@@ -56,24 +59,24 @@ define("TCPINFUSED", FALSE);
 
 } else {
 //If TCP is infused use settings from DB
-define("TCPINFUSED", TRUE);
-	$theme_maxwidth			= $setting['theme_maxwidth'];
-	$theme_minwidth			= $setting['theme_minwidth'];
-	$theme_maxwidth_forum 	= $setting['theme_maxwidth_forum'];
-	$theme_maxwidth_admin 	= $setting['theme_maxwidth_admin'];
-	$home_icon 				= $setting['home_icon'];
-	$winter_mode 			= $setting['winter_mode'];
-	$search_in_header		= $setting['search_in_header'];
-	$relative_time			= $setting['relative_time'];
-	$relative_time_elements	= $setting['relative_time_elements'];
-	$thread_preview 		= $setting['thread_preview'];
-	$latest_news 			= $setting['latest_news'];
-	$latest_articles 		= $setting['latest_articles'];
-	$newest_threads 		= $setting['newest_threads'];
-	$hottest_threads 		= $setting['hottest_threads'];
-	$latest_links 			= $setting['latest_links'];
-	$custom_links			= $setting['custom_links'];
-	$custom_links_list		= $setting['custom_links_list'];
+define("SETTINGS_INSTALLED", TRUE);
+	$theme_maxwidth			= $setting['ddraig_theme_maxwidth'];
+	$theme_minwidth			= $setting['ddraig_theme_minwidth'];
+	$theme_maxwidth_forum 	= $setting['ddraig_theme_maxwidth_forum'];
+	$theme_maxwidth_admin 	= $setting['ddraig_theme_maxwidth_admin'];
+	$home_icon 				= $setting['ddraig_home_icon'];
+	$winter_mode 			= $setting['ddraig_winter_mode'];
+	$search_in_header		= $setting['ddraig_search_in_header'];
+	$relative_time			= $setting['ddraig_relative_time'];
+	$relative_time_elements	= $setting['ddraig_relative_time_elements'];
+	$thread_preview 		= $setting['ddraig_thread_preview'];
+	$latest_news 			= $setting['ddraig_latest_news'];
+	$latest_articles 		= $setting['ddraig_latest_articles'];
+	$newest_threads 		= $setting['ddraig_newest_threads'];
+	$hottest_threads 		= $setting['ddraig_hottest_threads'];
+	$latest_links 			= $setting['ddraig_latest_links'];
+	$custom_links			= $setting['ddraig_custom_links'];
+	$custom_links_list		= $setting['ddraig_custom_links_list'];
 }
 
 //Check if different width is set for Forum
@@ -88,10 +91,9 @@ if ($theme_maxwidth_admin >= $theme_minwidth) {
 		$theme_maxwidth = $theme_maxwidth_admin;
 	}
 }
-
+defined("THEME_WIDTH") || define("THEME_WIDTH",	$theme_maxwidth."px"); //For compatibility
 define("THEME_MAXWIDTH", $theme_maxwidth."px");
 define("THEME_MINWIDTH", $theme_minwidth."px");
-define("THEME_WIDTH",	$theme_maxwidth."px"); //For compatibility
 define("HOME_AS_ICON",	$home_icon);
 define("WINTER", 		$winter_mode);
 define("SEARCH_HEAD",	$search_in_header);
