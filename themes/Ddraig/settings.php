@@ -4,7 +4,7 @@
 | Copyright (C) 2002 - 2014 Nick Jones
 | http://www.php-fusion.co.uk/
 +--------------------------------------------------------+
-| Filename: ddraig_tcpanel_admin.php
+| Filename: settings.php
 | Author: JoiNNN
 +--------------------------------------------------------+
 | This program is released as free software under the
