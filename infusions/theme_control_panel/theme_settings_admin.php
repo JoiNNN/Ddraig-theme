@@ -28,9 +28,9 @@ if (file_exists(INFUSIONS."theme_control_panel/locale/".$settings['locale'].".ph
 
 require_once THEMES."templates/admin_header.php";
 
-if (file_exists(THEMES.$settings['theme']."/settings.php")) {
+if (file_exists(THEMES.$settings['theme']."/theme_settings_admin.php")) {
 	// Include the Theme Control Panel
-	require_once THEMES.$settings['theme']."/settings.php";
+	require_once THEMES.$settings['theme']."/theme_settings_admin.php";
 } else {
 	// Theme has no Control Panel
 	opentable($locale['tcp_title']);

@@ -9,7 +9,7 @@
 (function ($) {
 	'use strict';
 	$.fn.extend({
-        //plugin name
+		//plugin name
 		toRelativeTime: function (options) {
 			var settings = {
 				live: true,			// update time and dates in real time

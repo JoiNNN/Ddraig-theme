@@ -25,7 +25,6 @@ if (file_exists(THEMES.$settings['theme']."/locale/".$settings['locale']."_ts.ph
 
 require_once INCLUDES."infusions_include.php"; // used for set_setting function
 
-$inf_prefix = "ddraig_";
 $inf = $inf_prefix."theme_settings";
 
 // Get the default theme settings
@@ -335,7 +334,7 @@ if (!SETTINGS_INSTALLED) {
 			</td>
 			<td class='inputs'>
 			<input type='checkbox' name='cbox_".$inf_prefix."relative_time' id='cbox_".$inf_prefix."relative_time' ".($setting[$inf_prefix.'relative_time'] == 1 ? "checked='checked' value='1'" : "value='0'")." />
-			<input name='".$inf_prefix."relative_time' id='".$inf_prefix."relative_time' value='".$setting[$inf_prefix.'relative_time_elements']."' ".($setting[$inf_prefix.'relative_time'] == 0 ? "disabled='disabled'" : "")." size='30' type='text' maxlength='100' class='textbox cboxinput' /> element/id/class
+			<input name='".$inf_prefix."relative_time' id='".$inf_prefix."relative_time' value='".$setting[$inf_prefix.'relative_time_elements']."' ".($setting[$inf_prefix.'relative_time'] == 0 ? "disabled='disabled'" : "")." type='text' maxlength='100' class='textbox cboxinput' /> element/id/class
 			</td>
 	</tr>";
 	echo $spacer;

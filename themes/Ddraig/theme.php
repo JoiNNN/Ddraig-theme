@@ -19,7 +19,7 @@
 +--------------------------------------------------------+
 | Theme: Ddraig
 | PHP-Fusion version: 7.02.05
-| Theme version: 1.0.2
+| Theme version: 1.1
 +--------------------------------------------------------*/
 if (!defined("IN_FUSION")) { die("Access Denied"); }
 
@@ -27,7 +27,7 @@ if (!defined("IN_FUSION")) { die("Access Denied"); }
 require_once THEME."theme_settings.php";
 
 define("THEME_BULLET", "<img src='".THEME."images/bullet.png' class='bullet' width='3' height='5' alt='>' />");
-require_once THEME."includes/functions.php";
+require_once THEME."includes/functions.inc.php";
 require_once INCLUDES."theme_functions_include.php";
 
 function get_head_tags(){
@@ -51,7 +51,8 @@ if (file_exists(THEME."locale/".$settings['locale'].".php")) {
 }
 
 //Open Sans font
-add_to_head("<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />");
+add_to_head("<meta name='viewport' content='width=device-width, initial-scale=1.0' />");
+add_to_head("<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />");
 
 //Header
 $links = showsublinks("","link");
@@ -70,7 +71,7 @@ $links = showsublinks("","link");
 	if (SEARCH_HEAD == 1) {
 		echo "<form id='top-search' name='top-search' action='".BASEDIR."search.php' method='get'>";
 		echo "<div class='search-input-wrap textbox flleft'>";
-		include THEME."includes/header_search_includes.php";
+		include THEME."includes/header_search.inc.php";
 		if ($stype != "") {
 			echo "<span id='search_area' class='search button mini flleft'>".$text." &nbsp;X</span>";
 			echo "<input type='hidden' value='".$stype."' id='search_type' name='stype' />";
@@ -93,17 +94,19 @@ $links = showsublinks("","link");
 	echo "</div>";
 
 	echo "</div>";
-	echo "<div id='main' class='$main_style theme-width center clearfix'>";
-
-//Panels structure
+	echo "<div id='main' class='".$main_style." theme-width center clearfix'>";
+	//Panels structure
 	echo (LEFT ? "<div id='side-border-left' class='sides flleft'>\n".LEFT."</div>\n" : "");
 	echo (RIGHT ? "<div id='side-border-right' class='sides flright'>\n".RIGHT."</div>\n" : "");
+
 //Main structure
 	echo "<div id='main-bg'><div id='container'>";
 	echo (U_CENTER ? "<div class='upper-block'>".U_CENTER."</div>" : "");
 	echo "<div class='main-block'>".CONTENT."</div>";
 	echo (L_CENTER ? "<div class='lower-block'>".L_CENTER."</div>" : "");
-	echo "</div></div></div>\n";
+	echo "</div></div>\n";
+
+	echo "</div>\n";
 
 //Footer
 	echo "<div id='footer'>";
@@ -112,22 +115,22 @@ $links = showsublinks("","link");
 	echo "<div class='footer center theme-width'>";
 	echo "<div class='footernav flleft'>";
 	//Footer links
-	require_once THEME."includes/footer_links.php";
+	require_once THEME."includes/footer_links.inc.php";
 	echo "</div></div>";
 
 	//Subfooter	
 	echo "<div id='subfooter'>";			
-	echo "<div id='copyright'><div class='flleft'><img width='40' src='".THEME."images/8ight.png' alt='Logo' /></div><div class='flleft' style='width: 40%; padding-left: 10px'>".(!$license ? showcopyright() : "")."<br />Theme designed by <a href='http://www.php-fusion.co.uk'>JoiNNN</a></div>";
-	echo "<div class='flright alright' style='width: 40%;'>".stripslashes($settings['footer'])."</div></div>";
+	echo "<div id='copyright'><div class='flleft'>".(!$license ? showcopyright() : "")."<br />Theme designed by <a href='http://www.php-fusion.co.uk'>JoiNNN</a></div>";
+	echo "<div class='flright text-right'>".stripslashes($settings['footer'])."</div></div>";
 	echo "<div class='subfooter clearfix'>";
 	echo "<div class='flleft' style='width: 50%'>";
 		if ($settings['rendertime_enabled'] == 1 || ($settings['rendertime_enabled'] == 2 && iADMIN)) {echo showrendertime();}
 	echo "</div>";
-	echo "<div class='flright alright' style='width: 50%;'>".showcounter()."</div>";
+	echo "<div class='flright text-right' style='width: 50%;'>".showcounter()."</div>";
 	echo "</div></div></div>\n";
 
 //Show warning if Theme Control Panel is not infused and if user has access to Infusions
-if (!TCPINFUSED && checkrights("I")) {
+if (!SETTINGS_INSTALLED && checkrights("I")) {
 	//Render the warning
 	replace_in_output("<!--error_handler-->", "<!--error_handler-->".$locale['tcp_warning']);
 	//Message close script
@@ -162,16 +165,16 @@ add_to_footer("<script type='text/javascript'>/*<![CDATA[*/
 	$('#search_type').removeAttr('disabled') //if is disabled, stays disabled after page reload. Remove attribute on page load
 
 	//Header search - placeholder script
-	var text = $('#splaceholder').html();
+	var text = $('#splaceholder').text();
 	if ($('#sinput').attr('value') != '') {
-		$('#splaceholder').html('') //remove placeholder text if other value is kept after page reload
+		$('#splaceholder').text('') //remove placeholder text if other value is kept after page reload
 	}
 	//remove placeholder text when typing
 	$('#sinput').bind('input propertychange', function() {
 		if ($(this).attr('value') != '') {
-			$('#splaceholder').html('') //remove
+			$('#splaceholder').text('') //remove
 		} else {
-			$('#splaceholder').html(text) //add it back if no text input
+			$('#splaceholder').text(text) //add it back if no text input
 		}
 	});
 
@@ -179,7 +182,7 @@ add_to_footer("<script type='text/javascript'>/*<![CDATA[*/
 	$('#main-logo').css({'top': '50%', 'margin-top': '-' + $('#main-logo').height()/2 + 'px'});"
 
 	//Thread preview script
-	.((THREAD_PREV == 1 && FUSION_SELF == 'viewforum.php') ? "
+	.((THREAD_PREV == 1 && in_array(FUSION_SELF, array("index.php", "viewforum.php"))) ? "
 	//Thread preview
 	$('a.preview-link').click(function (e) {
 		e.preventDefault();
@@ -205,9 +208,9 @@ add_to_footer("<script type='text/javascript'>/*<![CDATA[*/
 		//Loading and expanding the preview
 		} else if(!el.hasClass('loading')) {
 			el.removeClass('expand').addClass('loading');
-			$.ajax({url:'".THEME."includes/th_preview.php?thread_id=' + trgt,
+			$.ajax({url:'".THEME."includes/thread_preview.inc.php?thread_id=' + trgt,
 				success: function(result){
-					thistr.after('<tr><td id=\'thid' + trgt + '\' class=\'preview expanded loaded\' colspan=\'5\'>' + result + '<\/td><\/tr>');
+					thistr.after('<tr><td id=\'thid' + trgt + '\' class=\'preview expanded loaded\' colspan=\'4\'>' + result + '<\/td><\/tr>');
 					thistr.addClass('previewing');
 					el.removeClass('loading').addClass('close').attr('title', close_preview);
 					$('#thid' + trgt).children('div').stop(true, true).slideToggle('fast');
@@ -220,6 +223,11 @@ add_to_footer("<script type='text/javascript'>/*<![CDATA[*/
 	});" : "")."
 	/*]]>*/
 	</script>");
+add_to_footer("<script type='text/javascript' src='".THEME."js/flexmenu.js'></script>
+<script type='text/javascript'>
+$('.navigation').flexMenu({'activeClass' : '.current-link'});
+$('.findex').flexMenu({'hideAll' : true, 'activeClass' : '.none', 'hideOnMouseOut' : false});
+</script>");
 //Relative time script
 if (REL_TIME == 1) {
 	add_to_footer("<script type='text/javascript' src='".THEME."js/relative-date.js'></script>");
@@ -390,7 +398,7 @@ global $p_data;
 	}
 
 	echo "<div ".$id." class='".$class."'>";
-	echo "<h1 class='maincap'>";
+	echo "<h1 class='maincap clearfix'>";
 	echo "<span class='title'>".$title."</span>";
 	if ($info != "") {
 		echo "<span class='options'>";

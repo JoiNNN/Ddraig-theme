@@ -17,7 +17,7 @@
 +--------------------------------------------------------*/
 require_once "../../../maincore.php";
 //Check if this files exists within the theme set at the moment the request is made
-if (!file_exists(THEME."includes/th_preview.php")) {exit("...");}
+if (!file_exists(THEME."includes/thread_preview.inc.php")) {exit("...");}
 
 //Show error function
 function showerror($error) {
@@ -75,14 +75,10 @@ if ((!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || (strtolower($_SERVER['HTTP_X_R
     		}
 			//Function to get user info
 			function userinfoarray($id) {
-				$user_status = " AND (user_status='0' OR user_status='3' OR user_status='7')";
-				if (iADMIN) {
-					$user_status = "";
-				}
 				$result = dbquery(
 					"SELECT user_id, user_name, user_status, user_avatar
 					FROM ".DB_USERS."
-					WHERE user_id='".$id."'".$user_status."
+					WHERE user_id='".$id."'
 					LIMIT 1");
 				$data = dbarray($result);
 				return $data;
@@ -102,12 +98,15 @@ if ((!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || (strtolower($_SERVER['HTTP_X_R
 			//Last post data to array
 			$postdatal = dbarray(selectpost($_GET['thread_id'],'last'));
 			//Function to wrap stuff with profile link
-			function profilelink($id, $data="") {
+			function profilelink($id, $htmldata="") {
 				global $settings;
-				$link = "<a class='profile-link' href='".$settings['siteurl']."profile.php?lookup=".$id."'>".$data."</a>";
-				//Profiles disabled for public view?
-				if (!iMEMBER && $settings['hide_userprofiles'] == 1) {
-					$link = $data;
+
+				$data = userinfoarray($id);
+				$link = "<a class='profile-link' href='".$settings['siteurl']."profile.php?lookup=".$id."'>".$htmldata."</a>";
+				//Profiles disabled for public view or user banned?
+				$status = array('0','3','7');
+				if ((!iMEMBER && $settings['hide_userprofiles'] == 1) || (!iADMIN && !in_array($data['user_status'], $status))) {
+					$link = $htmldata;
 				}
 				return $link;
 			}

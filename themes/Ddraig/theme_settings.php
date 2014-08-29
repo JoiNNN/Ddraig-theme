@@ -17,8 +17,8 @@
 +--------------------------------------------------------*/
 if (!defined("IN_FUSION")) { die("Access Denied"); }
 
-// Check if TCP is infused
-define("TCPINFUSED", (bool)dbrows(dbquery("SELECT * FROM ".DB_INFUSIONS." WHERE inf_folder='theme_control_panel'")) ? TRUE : FALSE);
+// Check if we are in forum
+define("INFORUM", strpos(TRUE_PHP_SELF, '/forum/') !== FALSE ? TRUE : FALSE);
 
 function getsettings($setting_inf) {
 	$settings_arr = array();
@@ -32,21 +32,23 @@ function getsettings($setting_inf) {
 		return false;
 	}
 }
+// DB settings prefix
+$inf_prefix = "ddraig_";
 
-$setting = getsettings('ddraig_theme_settings');
+$setting = getsettings($inf_prefix."theme_settings");
 
 if (!$setting) {
 //If TCP is not infused use these settings
 define("SETTINGS_INSTALLED", FALSE);
 	//Lines below can be changed as an alternative to TCP
-	$theme_maxwidth 		= 1300;	//Integer (Must be higher than $theme_minwidth)
-	$theme_minwidth 		= 986;	//Integer (Must be lower or equal to $theme_maxwidth)
+	$theme_maxwidth 		= 1280;	//Integer (Must be higher than $theme_minwidth)
+	$theme_minwidth 		= 320;	//Integer (Must be lower or equal to $theme_maxwidth)
 	$theme_maxwidth_forum	= 0;	//Integer (0 - Disabled. Must be higher than $theme_minwidth)
 	$theme_maxwidth_admin	= 0;	//Integer (0 - Disabled. Must be higher than $theme_minwidth)
 	$home_icon				= 1;	//Boolean (1/0)
 	$winter_mode			= 0;	//Boolean (1/0)
 	$search_in_header		= 1;	//Boolean (1/0)
-	$relative_time			= 1;	//Boolean (1/0)
+	$relative_time			= 0;	//Boolean (1/0)
 	$relative_time_elements	= ".dated, .shoutboxdate, .last-post-date"; //Text (CSS classes - News, Shoutbox, Last post)
 	$thread_preview			= 1;	//Boolean (1/0)
 	$latest_news 			= 1;	//Boolean (1/0)
@@ -60,34 +62,34 @@ define("SETTINGS_INSTALLED", FALSE);
 } else {
 //If TCP is infused use settings from DB
 define("SETTINGS_INSTALLED", TRUE);
-	$theme_maxwidth			= $setting['ddraig_theme_maxwidth'];
-	$theme_minwidth			= $setting['ddraig_theme_minwidth'];
-	$theme_maxwidth_forum 	= $setting['ddraig_theme_maxwidth_forum'];
-	$theme_maxwidth_admin 	= $setting['ddraig_theme_maxwidth_admin'];
-	$home_icon 				= $setting['ddraig_home_icon'];
-	$winter_mode 			= $setting['ddraig_winter_mode'];
-	$search_in_header		= $setting['ddraig_search_in_header'];
-	$relative_time			= $setting['ddraig_relative_time'];
-	$relative_time_elements	= $setting['ddraig_relative_time_elements'];
-	$thread_preview 		= $setting['ddraig_thread_preview'];
-	$latest_news 			= $setting['ddraig_latest_news'];
-	$latest_articles 		= $setting['ddraig_latest_articles'];
-	$newest_threads 		= $setting['ddraig_newest_threads'];
-	$hottest_threads 		= $setting['ddraig_hottest_threads'];
-	$latest_links 			= $setting['ddraig_latest_links'];
-	$custom_links			= $setting['ddraig_custom_links'];
-	$custom_links_list		= $setting['ddraig_custom_links_list'];
+	$theme_maxwidth			= $setting[$inf_prefix.'theme_maxwidth'];
+	$theme_minwidth			= $setting[$inf_prefix.'theme_minwidth'];
+	$theme_maxwidth_forum 	= $setting[$inf_prefix.'theme_maxwidth_forum'];
+	$theme_maxwidth_admin 	= $setting[$inf_prefix.'theme_maxwidth_admin'];
+	$home_icon 				= $setting[$inf_prefix.'home_icon'];
+	$winter_mode 			= $setting[$inf_prefix.'winter_mode'];
+	$search_in_header		= $setting[$inf_prefix.'search_in_header'];
+	$relative_time			= $setting[$inf_prefix.'relative_time'];
+	$relative_time_elements	= $setting[$inf_prefix.'relative_time_elements'];
+	$thread_preview 		= $setting[$inf_prefix.'thread_preview'];
+	$latest_news 			= $setting[$inf_prefix.'latest_news'];
+	$latest_articles 		= $setting[$inf_prefix.'latest_articles'];
+	$newest_threads 		= $setting[$inf_prefix.'newest_threads'];
+	$hottest_threads 		= $setting[$inf_prefix.'hottest_threads'];
+	$latest_links 			= $setting[$inf_prefix.'latest_links'];
+	$custom_links			= $setting[$inf_prefix.'custom_links'];
+	$custom_links_list		= $setting[$inf_prefix.'custom_links_list'];
 }
 
 //Check if different width is set for Forum
 if ($theme_maxwidth_forum >= $theme_minwidth) {
-	if (strpos(TRUE_PHP_SELF, '/forum/') !== FALSE) {
+	if (INFORUM) {
 		$theme_maxwidth = $theme_maxwidth_forum;
 	}
 }
 //Check if different width is set for Administration
 if ($theme_maxwidth_admin >= $theme_minwidth) {
-	if (strpos(TRUE_PHP_SELF, '/administration/') !== FALSE) {
+	if (defined(ADMIN_PANEL)) {
 		$theme_maxwidth = $theme_maxwidth_admin;
 	}
 }

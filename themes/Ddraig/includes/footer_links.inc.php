@@ -142,7 +142,7 @@ echo "<div class='links-section flleft'>";
 		}
 		if (!empty($wlids)) {
 			foreach ($wlids as $wlid) {
-				$result = dbquery("SELECT * FROM ".DB_WEBLINKS." WHERE weblink_id='".$wlid."' LIMIT 1");
+				$result = dbquery("SELECT * FROM ".DB_WEBLINKS." WHERE weblink_id='".$wlid."'");
 				while ($data = dbarray($result)) {
 					if ($i < 6) {
 						$itemsubjectlink = trimlink($data['weblink_name'], 25);
