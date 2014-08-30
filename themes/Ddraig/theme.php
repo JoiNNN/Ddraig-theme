@@ -31,7 +31,6 @@ require_once THEME."includes/functions.inc.php";
 require_once INCLUDES."theme_functions_include.php";
 
 function get_head_tags(){
-	echo "<!--[if lte IE 7]><style type='text/css'>hr{height: 2px;} .panelcap .title{float: left;} .button,button,input[type=submit]{padding: 4px 6px} button.button {display:inline} .clearfix {display:inline-block;} * html .clearfix{height: 1px;}</style><![endif]-->\n";
 	//Theme width class
 	echo "<style type='text/css'>.theme-width {max-width: ".THEME_MAXWIDTH.";min-width: ".THEME_MINWIDTH."}</style>\n";
 }
