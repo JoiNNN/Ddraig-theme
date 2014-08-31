@@ -32,8 +32,8 @@
 		// Animate menu dropdown
 		el.find('.responsive-menu-button').live('click', function(e) {
 			e.preventDefault();
+
 			toggleMenu();
-			
 		});
 		// Hide the menu on mouseout
 		if ($s.hideOnMouseOut) {
@@ -46,24 +46,16 @@
 			var menu = el.find('.responsive-menu'),
 				menu_ul = el.find('.responsive-menu ul');
 
-			$(menu).hasClass('active') ? active = true : active = false;
-
-			 $(menu_ul).stop().animate({'height': (active ? '0' : ($(menu_ul)[0].scrollHeight)) + 'px'}, 100,
-				function(){
-					// Do stuff when animation complete
-					//console.log('Menu animation complete!');
-				}
-			);	
+			$(menu_ul).stop(true, true).slideToggle('fast');
 			$(menu).toggleClass('active');
 		}
 
 		function adjustFlexMenu() {
-
 			//console.info('*** Adjusting menu for ' + el.attr('class'));
 
 			// Reset everything before adjusting the menu
 			el.find('.responsive-menu').removeClass('active');
-			el.find('.responsive-menu ul').css('height', '0');
+			el.find('.responsive-menu ul').hide();
 
 			// Add a link to the responsive menu
 			addToMenu();

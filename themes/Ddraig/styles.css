@@ -1404,7 +1404,7 @@ ul.findex {
 		right: 0;
 		position: relative;
 		z-index: 1;
-		height: 0;
+		display: none;
 		min-width: 200px;
 		margin: 0;
 	}
@@ -1475,7 +1475,7 @@ ul.navigation {
 		right: 0;
 		position: absolute;
 		z-index: 999;
-		height: 0;
+		display: none;
 		min-width: 200px;
 		margin: 0;
 		background-color: #555;
