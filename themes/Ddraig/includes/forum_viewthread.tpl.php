@@ -64,7 +64,6 @@ function replace_poster($m) {
 	global $locale;
 
 	return "<!--forum_thread_user_name--><a href='".BASEDIR."profile.php?lookup=".$m['1']."' class='profile-link'>".$m['2']."</a> ".(is_online($m['1']) ? "<span class='online-status tag green' title='".$locale['online']."'> </span>" : "");
-
 }
 $output = preg_replace_callback($search_poster, 'replace_poster', $output, 20); // occurs 20 max
 

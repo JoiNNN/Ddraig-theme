@@ -63,7 +63,7 @@ $links = showsublinks("","link");
 	$links = preg_replace("#(.*<li class=')link( current-link)?( home)?('.*)#si", "$1link last-link$2$3$4", $links, 1);
 	$links = preg_replace("#<ul>#i", "<ul class='navigation'>", $links, 1);
 	echo "<div id='header' class='clearfix'>";
-	echo "<div id='mainheader' class='center clearfix'>";
+	echo "<div id='mainheader' class='theme-width center clearfix'>";
 
 	echo "<div id='logo'>".showbanners()."</div>";
 	//Search based on the website area you are on

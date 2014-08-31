@@ -60,7 +60,7 @@ a:hover {color: #e79300;}
 
 #logo {
 	padding: 10px 0;
-	margin: 0 8px 0 20px;
+	margin: 0 8px;
 	min-height: 78px;
 }
 #main-logo {
@@ -664,7 +664,9 @@ code li {
 .forum_table tr:hover .tbl1 {
 	background: #f7f7f7;
 }
-
+.forum_extension {
+	width: 100%
+}
 /* Thread preview */
 .preview-link,
 .preview-link.loading {
@@ -745,6 +747,9 @@ tr:last-child .preview.expanded {
 .forum_thread_post_space {
 	display: none;
 }
+.forum-post > td {
+	border: 1px solid #ddd;
+}
 .forum_thread_user_name,
 .forum_thread_post_date,
 .forum_thread_user_info,
@@ -753,11 +758,13 @@ tr:last-child .preview.expanded {
 .forum_thread_userbar {
 	border: 0;
 }
+.forum_thread_user_info,
+.forum_thread_userbar,
+.forum_thread_user_post,
+.forum_thread_ip {
+	background-color: #FBFBFB;
+}
 .forum_thread_user_name {
-	border-style: solid;
-	border-width: 1px 0 1px 1px;
-	border-color: #ddd #f4f4f4 #eee #ddd;
-	background: #f4f4f4;
 	font-weight: bold;
 	font-size: 14px;
 	color: #444;
@@ -777,30 +784,18 @@ tr:last-child .preview.expanded {
 .forum_thread_user_name a:hover {
 	text-decoration: underline;
 }
+.forum_thread_user_name,
 .forum_thread_post_date {
-	border-style: solid;
-	border-width: 1px 1px 1px 0;
-	border-color: #ddd #ddd #eee #f4f4f4;
-	background: #f4f4f4
+	border-bottom: 1px solid #eee;
+	background-color: #f4f4f4
 }
 .forum_thread_post_date a {
 	font-size: 14px;
 	font-weight: bold;
 }
-
-.forum_thread_user_info {
-	border-left: 1px solid #ddd;
-	background: #FBFBFB;
-}
-.forum_thread_user_post {border-right: 1px solid #ddd;background: #FBFBFB}
-
 .forum_thread_ip {
-	border-bottom: 1px solid #ddd;
-	border-left: 1px solid #ddd;
-	background: #FBFBFB;
 	white-space: nowrap;
 }
-.forum_thread_userbar {border-bottom: 1px solid #ddd;border-right: 1px solid #ddd;background: #FBFBFB}
 
 .post-edited {
 	background: url(images/comment_edit.png) no-repeat 6px 10px #FFEBC8;
@@ -1243,7 +1238,7 @@ h2.panelcap .tag {
 }
 .forum-titlebar .thread-counts,
 .thread-titlebar .thread-counts {
-	
+	clear: right;
 }
 .stats-caption {
 	width: 100px;
@@ -1645,7 +1640,7 @@ ul.navigation {
 		min-width: 100%;
 	}
 	.profile-page .user-avatar .avatar {
-		width: 120px
+		max-width: 120px
 	}
 	.preview-wrap {
 		padding: 9px 11px 14px;

@@ -19,16 +19,12 @@ if (!defined("IN_FUSION")) { die("Access Denied"); }
 
 $search_viewforum = array();
 $replace_viewforum = array();
-/*/Locked thread tag (viewforum.php)
+/*
+//Locked thread tag (viewforum.php)
 $search_viewforum[] .= "@src='(.*?)/forum/folderlock.png'(.*?)<td width='100%' class='(.*?)'>(.*?)<a@si";
 $replace_viewforum[] .= "src='$1/forum/folderlock.png'$2<td width='100%' class='$3 thread-locked'>$4<span class='tag red'>".$locale['locked']."</span> <a";
-// Thread pages numbers (viewforum.php)	
-$search_viewforum[] .= "@\(".$locale['455']."(.*?)\)@i";
-$replace_viewforum[] .= "<span class='pages small'>".$locale['455']."$1</span>";
-// Thread title class and thread preview link (viewforum.php)
-$search_viewforum[] .= "@src='(.*?)/forum/(folder|foldernew|folderlock)(.*?)<td width='100%' class='(.*?)'>(.*?)<a (.*?)thread_id=(.*?)>(.*?)</a>@si";
-$replace_viewforum[] .= "src='$1/forum/$2$3<td width='100%' class='$4'>$5<a class='thread-title' $6thread_id=$7>$8</a>".((THREAD_PREV == 1) ? "<a title='".$locale['prev_thread']."' class='preview-link expand flright' $6thread_id=$7></a>" : "");
-*///Thread Replies/Views
+*/
+//Thread Replies/Views
 $search_viewforum[] .= "@<td class='tbl2 forum-caption' width='1%' style='white-space:nowrap'>".$locale['452']."</td>\n<td class='tbl2 forum-caption' width='1%' style='white-space:nowrap' align='center' >".$locale['global_045']."</td>\n<td class='tbl2 forum-caption' width='1%' style='white-space:nowrap' align='center'>".$locale['global_046']."</td>\n<td class='tbl2 forum-caption' width='1%' style='white-space:nowrap'>".$locale['404']."</td>@si";
 $replace_viewforum[] .= "<td class='forum-caption stats-caption tbl2 ' align='center'>".$locale['global_046']." / ".$locale['global_045']."</td>\n<td class='forum-caption last-post-caption tbl2'>".$locale['404']."</td>";
 $search_viewforum[] .= "@<td class='tbl2 forum-caption' width='1%' style='white-space:nowrap'>&nbsp;</td>@i";

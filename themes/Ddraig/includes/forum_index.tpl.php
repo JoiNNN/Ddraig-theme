@@ -39,7 +39,7 @@ function replace_forum_row($m) {
 	$r .= "<span class='small'>".$m[4]."</span>";
 	$r .= "</td>";
 	$r .= "<td class='thread-stats tbl1'><dl class='major'><dt>".$locale['402'].": </dt><dd>".$m[5]."</dd></dl><dl class='minor small'><dt>".$locale['403'].": </dt><dd>".$m[6]."</dd></dl></td>\n";
-	$r .= "<td width='1%' class='thread-last-post tbl1'>".(isset($m[8]) ? "<div class='last-post-avatar flleft'>".build_avatar($m[10])."</div><span class='last-post-author'><a href='".BASEDIR."profile.php?lookup=".$m[10]."' class='profile-link'>".$m[11]."</a></span><br /><span class='last-post-date small'>".$m[7]."</span>" : $m[7])."</td>";
+	$r .= "<td width='1%' class='thread-last-post tbl1'>".(isset($m[8]) ? "<div class='last-post-avatar flleft'>".build_avatar($m[10])."</div><span class='last-post-author'>".(!empty($m[11]) ? "<a href='".BASEDIR."profile.php?lookup=".$m[10]."' class='profile-link'>".$m[11]."</a>" : $locale['deleted_user'])."</span><br /><span class='last-post-date small'>".$m[7]."</span>" : $m[7])."</td>";
 	$r .= "</tr>";
 
 	return $r;
@@ -234,7 +234,7 @@ function forum_item($data) {
 	$threads_per_page = 20;
 
 	if (!empty($data['data'])) {
-		$html .= "<table class='forum_table tbl-border'>\n";
+		$html .= "<table class='forum_table forum_extension tbl-border'>\n";
 		$html .= "<tr><td class='tbl2 forum-caption'>".$locale['451']."</td>\n";
 		$html .= "<td class='forum-caption stats-caption tbl2' style='white-space:nowrap' align='center'>".$locale['454']." / ".$locale['453']."</td>\n";
 		$html .= "<td class='forum-caption last-post-caption tbl2'>".$locale['404']."</td>\n</tr>\n";

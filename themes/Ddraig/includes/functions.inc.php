@@ -177,8 +177,8 @@ function theme_output($output) {
 						$avatar = "<img class='avatar' src='".IMAGES."avatars/".$pdata['avatar_author']."' alt='".$locale['567']."' />";
 					}
 					$r .= "<div class='user-avatar flleft'>".$avatar."</div>\n";
-					$r .= "<h1>".($pdata['thread_locked'] ? "<span class='tag red'>".$locale['locked']."</span> " : "");
-					$r .= $pdata['thread_subject']."";
+					$r .= "<div class='thread-info clearfix'>";
+					$r .= "<h1>".($pdata['thread_locked'] ? "<span class='tag red'>".$locale['locked']."</span> " : "").$pdata['thread_subject']."";
 					$r .= "<span class='thread-options flright'>";
 					// Tack this thread
 					if (iMEMBER && $settings['thread_notify']) {
@@ -193,7 +193,7 @@ function theme_output($output) {
 					$r .= "</span></h1>";
 					$r .= "<p class='thread-starter flleft'>".sprintf($locale['started_by']." ", profile_link($pdata['post_author'], $pdata['user_author'], $pdata['status_author']), $locale['on'], showdate("forumdate", $pdata['post_datestamp']))."</p>";
 					$r .= "<span class='thread-counts faint small flright'>".sprintf($locale['posts_and_views'], $pdata['thread_postcount'], $pdata['thread_views'])."</span>";
-					$r .= "</div>";
+					$r .= "</div></div>\n";
 				}
 			}
 			return $r;
