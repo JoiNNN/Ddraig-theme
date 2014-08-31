@@ -17,6 +17,12 @@
 +--------------------------------------------------------*/
 if (!defined("IN_FUSION")) { die("Access Denied"); }
 
+// Set cookie for hiding TCP warning when not installed
+if (isset($_GET['hidetcpwarning'])) {
+	setcookie(COOKIE_PREFIX.'tcpnotice', 'no', strtotime("+1 day"), $settings['site_path']);
+	exit;
+}
+
 set_image("pollbar", THEME."images/btn.png");
 set_image("edit", THEME."images/edit.png");
 set_image("printer", THEME."images/printer.png");
@@ -72,47 +78,18 @@ function theme_output($output) {
 		"@<body>@i",																				// Add relevant class to body based on area and page we are on
 		"@<a href='".ADMIN."comments.php(.*?)&amp;ctype=(.*?)&amp;cid=(.*?)'>(.*?)</a>@si", 		// Manage comments button
 		"@<div class='quote'><a (.*?)><strong>(.*?)</strong></a>(<br />)?@si",						// Quote
-		// "@<img src='(.[^>]*?)/forum/stickythread.png'(.*?)/>@i",									// Sticky thread image
-		// "@<span class='small' style='font-weight:bold'>\[".$locale['global_051']."\]</span>@i",	// Poll thread text (forum_threads_list panel)
+		"@<span class='small' style='font-weight:bold'>\[".$locale['global_051']."\]</span>@i",		// Poll thread text (forum_threads_list panel)
 	);
 	$replace_site = array(
 		"<body class='".((INFORUM ? "inforum " : ((defined('ADMINPANEL') && ADMINPANEL) ? "adminpanel " : "")).str_replace(array('_', '.php'), array('-', ''), FUSION_SELF))."-page ".(iMEMBER ? "user-member" : "user-guest")."'>",
 		"<a href='".ADMIN."comments.php$1&amp;ctype=$2&amp;cid=$3' class='big button flright'><span class='settings-button icon'>$4</span></a>",
 		"<div class='quote extended'><p class='citation'><img src='".THEME."images/quote_icon.png' alt='>' /><a $1><strong>$2</strong></a></p>",
-		// "<span class='tag green'>".$locale['sticky']."</span>",
-		// "<span class='tag blue small'>".$locale['global_051']."</span>",
+		"<span class='tag blue small'>".$locale['global_051']."</span>",
 	);
 	$output = preg_replace($search_site, $replace_site, $output);
 
 	if (FUSION_SELF == "profile.php") {
 		include_once THEME."includes/profile.tpl.php"; // not required, include just once
-	}
-	
-	// Forums and "Latest Active Forum Threads" users last post avatar
-	$result = dbquery("SELECT panel_filename FROM ".DB_PANELS." WHERE panel_filename='forum_threads_list_panel' AND panel_status='1' LIMIT 1");
-	if (INFORUM && in_array(FUSION_SELF, array("index.php", "viewforum.php")) || dbarray($result)) { // add avatar only when viewing the forum or when forum_threads_list_panel is enabled
-		function replace_avatar($m) {
-			global $locale;
-			$r = "<td width='1%' style='white-space:nowrap' class='tbl".$m[1]."'>".$locale['deleted_user']."</td>";
-			$class = $m[1];
-			$id = $m[6];
-			$name = $m[7];
-			$date = $m[9];
-			if ($m[3] != "") {
-				$date = $m[3];
-			}
-			$src = IMAGES."avatars/noavatar50.png";
-			$result = dbquery("SELECT user_avatar FROM ".DB_USERS." WHERE user_id='".$id."'");
-			while ($data = dbarray($result)) {
-				if ($data['user_avatar'] && file_exists(IMAGES."avatars/".$data['user_avatar'])) {
-					$src = IMAGES."avatars/".$data['user_avatar'];
-				}
-			$r = "<td width='1%' class='tbl".$class." last-post'><a href='".BASEDIR."profile.php?lookup=".$id."' class='profile-link flleft'><span class='user-avatar'><img class='avatar small' src='".$src."' alt='Avatar' /></span></a><span class='last-post-author'><a href='".BASEDIR."profile.php?lookup=".$id."' class='profile-link'>".$name."</a></span><br /><span class='last-post-date'>".$date."</span></td>";
-			}
-			return $r;
-		}
-		$searchlink = "#<td width='1%' class='tbl(1|2)' style='(.*?)?white-space:nowrap'>(.*?)?(<br />\n<span class='small'>)?(.*?)?<a href='".BASEDIR."profile.php\?lookup=(.*?)' class='profile-link'>(.*?)</a>(<br />\n|</span>)(.*?)?</td>#i";
-		// $output = preg_replace_callback($searchlink, 'replace_avatar', $output);
 	}
 
 	// Replacements that only occur in forums should be searched for only when viewing the forums
@@ -127,12 +104,10 @@ function theme_output($output) {
 		$search_forum = array(
 		"@><img src='newthread' alt='(.*?)' style='border:0px;?' />@si",							// New thread button (viewforum.php|viewthread.php)
 		"@<input (.*?) name='(delete_posts|delete_threads)' value='(.*?)' class='(.*?)' (.*?) />@i",// Delete posts button (viewforum.php|viewthread.php)
-		"@<table cellpadding='0' cellspacing='1' width='100%' class='tbl-border (.*?)'>@i",			// No more cellspacing in forum's tables (needed for IE7 as it can't apply CSS rules to overwrite cellspacing) (index.php|viewforum.php|viewthread.php)
 		);
 		$replace_forum = array(		
 		" class='button big'><span class='newthread-button icon'>$1</span>",
 		"<button $1 class='$4 negative' name='$2' $5><span class='del-button icon'>$3</span></button>",	
-		"<table cellpadding='0' cellspacing='0' width='100%' class='tbl-border $1'>",
 		);
 		$output = preg_replace($search_forum, $replace_forum, $output);
 

@@ -49,8 +49,8 @@ if (file_exists(THEME."locale/".$settings['locale'].".php")) {
 	include THEME."locale/English.php";
 }
 
-//Open Sans font
 add_to_head("<meta name='viewport' content='width=device-width, initial-scale=1.0' />");
+//Open Sans font
 add_to_head("<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />");
 
 //Header
@@ -131,23 +131,22 @@ $links = showsublinks("","link");
 //Show warning if Theme Control Panel is not infused and if user has access to Infusions
 if (!SETTINGS_INSTALLED && checkrights("I")) {
 	//Render the warning
-	replace_in_output("<!--error_handler-->", "<!--error_handler-->".$locale['tcp_warning']);
+	if (!isset($_COOKIE[COOKIE_PREFIX.'tcpnotice'])) {
+		replace_in_output("<!--error_handler-->", "<!--error_handler-->".$locale['tcp_warning']);
+	}
 	//Message close script
-	add_to_footer("<script type='text/javascript' src='".THEME."js/jquery.cookie.js'></script>");
 	add_to_footer("<script type='text/javascript'>
-	$('#tcp-warn').click( function() {
+	$('#tcp-warn').click( function(e) {
+		e.preventDefault();
+
+		$.get(this.href);
 		$('.tcp-warn').fadeTo('slow',0.01,function(){
 			$(this).slideUp('slow',function(){
 				$(this).hide()
 			});
-		$.cookie('showWarn', 'hide', {expires: 1, path:'/'});
 		});
 	});
-	var showWarn = $.cookie('showWarn');
-	if (showWarn == 'hide') {
-		$('.tcp-warn').hide();
-	}
-	</script>");	 
+	</script>");
 }
 add_to_footer("<script type='text/javascript' src='".THEME."js/jquery.mousewheel.js'></script>");
 add_to_footer("<script type='text/javascript' src='".THEME."js/scrolltopcontrol.js'></script>");
@@ -168,18 +167,14 @@ add_to_footer("<script type='text/javascript'>/*<![CDATA[*/
 	if ($('#sinput').attr('value') != '') {
 		$('#splaceholder').text('') //remove placeholder text if other value is kept after page reload
 	}
-	//remove placeholder text when typing
+	//Remove placeholder text when typing
 	$('#sinput').bind('input propertychange', function() {
 		if ($(this).attr('value') != '') {
 			$('#splaceholder').text('') //remove
 		} else {
 			$('#splaceholder').text(text) //add it back if no text input
 		}
-	});
-
-	//Verticaly align the logo
-	$('#main-logo').css({'top': '50%', 'margin-top': '-' + $('#main-logo').height()/2 + 'px'});"
-
+	});"
 	//Thread preview script
 	.((THREAD_PREV == 1 && in_array(FUSION_SELF, array("index.php", "viewforum.php"))) ? "
 	//Thread preview
@@ -255,7 +250,7 @@ if (REL_TIME == 1) {
 function render_news($subject, $news, $info) {
 global $locale, $settings;
 	opentable($subject, "post", $info, "N");
-	echo "<ul class='item-info news-info'>\n";
+	echo "<ul class='item-info news-info clearfix'>\n";
 	//Author
 	echo "<li class='author'>".profile_link($info['user_id'], $info['user_name'], $info['user_status'])."</li>\n";
 	//Date
@@ -291,7 +286,7 @@ global $locale, $settings;
 function render_article($subject, $article, $info) {
 global $locale, $settings;
 	opentable($subject, "article", $info, "A");
-	echo "<ul class='item-info article-info'>\n";
+	echo "<ul class='item-info article-info clearfix'>\n";
 	//Author
 	echo "<li class='author'>".profile_link($info['user_id'], $info['user_name'], $info['user_status'])."</li>\n";
 	//Date

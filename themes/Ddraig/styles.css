@@ -455,7 +455,6 @@ input[type=text]:hover, input[type=text]:focus
 .item-info {
 	margin: 0;
 	margin-bottom: 2px;
-	height: 22px;
 	list-style: none;
 }
 .news-info li,
@@ -1552,6 +1551,14 @@ ul.navigation {
 }
 
 @media only screen and (max-width: 960px) {
+	.forum_thread_user_name {
+		width: 100px !important;
+		word-break: break-all;
+	}
+	.forum_thread_user_info .user-avatar .avatar {
+		width: 100px
+	}
+
 	/* Move the right side panels to the left */
 	.side-both #side-border-right {
 		float: left !important;
@@ -1612,7 +1619,7 @@ ul.navigation {
 		font-size: 13px
 	}
 	.forum_thread_user_name {
-		width: 80px !important;
+		width: 70px !important;
 		word-break: break-all;
 	}
 	.forum_thread_user_info {
@@ -1622,7 +1629,7 @@ ul.navigation {
 		max-width: 100px !important
 	}
 	.forum_thread_user_info .user-avatar .avatar {
-		width: 72px
+		width: 80px
 	}
 
 	.forum_thread_user_post,
@@ -1754,7 +1761,7 @@ ul.navigation {
 	}
 }
 
-@media only screen and (max-width: 610px) {
+@media only screen and (max-width: 598px) {
 	.last-post-avatar {
 		display: none;
 	}
