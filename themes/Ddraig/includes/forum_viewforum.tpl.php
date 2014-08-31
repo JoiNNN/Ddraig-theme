@@ -55,7 +55,7 @@ function replace_threadrow($m) {
 	if ($m[20] >= 10) {
 		$postdatabl = dbarray(select_post($m[11], 'DESC LIMIT 1,2'));
 		// Check if the last post was not made too long ago
-		if (date() - $postdatal['post_datestamp'] < 5*(24*3600)) {
+		if (time() - $postdatal['post_datestamp'] < 5*(24*3600)) {
 			// Check if the date difference between last post and the one before that is not too big
 			if ($postdatal['post_datestamp'] - $postdatabl['post_datestamp'] < 5*(24*3600)) {
 				$hot = TRUE;
