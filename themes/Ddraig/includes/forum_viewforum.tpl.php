@@ -77,7 +77,7 @@ function replace_threadrow($m) {
 	$html .= " <span class='pages small'>".$m[14]."</span>";
 	$html .= "<span class='thread-stats-responsive faint small'><br />".$locale['global_046'].": <span class='darker'>".$m[20]."</span> / ".$locale['global_045'].": <span class='darker'>".$m[19]."</span></span></td>\n";
 	$html .= "<td class='thread-stats tbl1'><dl class='major'><dt>".$locale['global_046'].": </dt><dd>".$m[20]."</dd></dl><dl class='minor small'><dt>".$locale['global_045'].": </dt><dd>".$m[19]."</dd></dl></td>\n";
-	$html .= "<td class='thread-last-post tbl1' style='white-space:nowrap'><div class='last-post-avatar flleft'>".build_avatar($id)."</div>\n";
+	$html .= "<td class='thread-last-post tbl1'><div class='last-post-avatar flleft'>".build_avatar($id)."</div>\n";
 	$html .= "<div class='last-post-info'><span class='last-post-author'>".($id ? (!empty($m[25]) ? "<a href='".BASEDIR."profile.php?lookup=".$id."' class='profile-link'>".$m[25]."</a>" : "<span class='deleted-user'>".$locale['deleted_user']."</span>") : $m[26])."</span><br />";
 	$html .= "<span class='last-post-date small'><a title='".$locale['go_to_last_post']."' href='viewthread.php?thread_id=".$m[11]."&amp;pid=".$postdatal['post_id']."#post_".$postdatal['post_id']."'>".$m[21]."</a></span></div></td>\n";
 	$html .= "</tr>";

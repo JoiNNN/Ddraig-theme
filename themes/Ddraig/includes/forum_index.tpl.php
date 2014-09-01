@@ -39,12 +39,24 @@ function replace_forum_row($m) {
 	$r .= "<span class='small'>".$m[4]."</span>";
 	$r .= "</td>";
 	$r .= "<td class='thread-stats tbl1'><dl class='major'><dt>".$locale['402'].": </dt><dd>".$m[5]."</dd></dl><dl class='minor small'><dt>".$locale['403'].": </dt><dd>".$m[6]."</dd></dl></td>\n";
-	$r .= "<td width='1%' class='thread-last-post tbl1'>".(isset($m[8]) ? "<div class='last-post-avatar flleft'>".build_avatar($m[10])."</div><span class='last-post-author'>".(!empty($m[11]) ? "<a href='".BASEDIR."profile.php?lookup=".$m[10]."' class='profile-link'>".$m[11]."</a>" : $locale['deleted_user'])."</span><br /><span class='last-post-date small'>".$m[7]."</span>" : $m[7])."</td>";
+	$r .= "<td class='thread-last-post tbl1'>".(isset($m[8]) ? "<div class='last-post-avatar flleft'>".build_avatar($m[10])."</div><span class='last-post-author'>".(!empty($m[11]) ? "<a href='".BASEDIR."profile.php?lookup=".$m[10]."' class='profile-link'>".$m[11]."</a>" : $locale['deleted_user'])."</span><br /><span class='last-post-date small'>".$m[7]."</span>" : $m[7])."</td>";
 	$r .= "</tr>";
 
 	return $r;
 }
 $output = preg_replace_callback($search_forum_row, 'replace_forum_row', $output);
+
+
+if (isset($_GET['latest'])) {
+	$secondary_title = $locale['latest_active_threads'];
+} else if (isset($_GET['participated'])) {
+	$secondary_title = $locale['participated_threads'];
+} else if (isset($_GET['unanswered'])) {
+	$secondary_title = $locale['unanswered_threads'];
+} else {
+	$secondary_title = "";
+}
+$secondary_title = (!empty($secondary_title) ? " <span class='forum-secondary-title'>(".$secondary_title.")</span>" : "");
 
 // Add the links next to the title (index.php)
 $search_forum_title = "@<span class='title'>".$locale['400']."</span>@i";
@@ -273,7 +285,7 @@ function forum_item($data) {
 			if ($thread_data['lastposter_avatar'] && file_exists(IMAGES."avatars/".$thread_data['lastposter_avatar']) && $thread_data['lastposter_status']!=6 && $thread_data['lastposter_status']!=5) {
 				$avatar = "<img class='avatar' src='".IMAGES."avatars/".$thread_data['lastposter_avatar']."' alt='".$locale['567']."' />";
 			}
-			$html .= "<td class='thread-last-post tbl1' style='white-space:nowrap'><div class='last-post-avatar'><span class='user-avatar'>".$avatar."</span></div>\n";
+			$html .= "<td class='thread-last-post tbl1'><div class='last-post-avatar'><span class='user-avatar'>".$avatar."</span></div>\n";
 			$html .= "<div class='last-post-info'><span class='last-post-author'>".(!empty($thread_data['lastposter_id']) ? profile_link($thread_data['lastposter_id'], $thread_data['lastposter_name'], $thread_data['lastposter_status']) : "<span class='deleted-user'>".$locale['deleted_user']."</span>")."</span><br />";
 			$html .= "<span class='last-post-date small'><a title='".$locale['go_to_last_post']."' href='viewthread.php?thread_id=".$thread_data['thread_id']."&amp;pid=".$thread_data['thread_lastpostid']."#post_".$thread_data['thread_lastpostid']."'>".showdate("forumdate", $thread_data['thread_lastpost'])."</a></span>";
 			$html .= "</div>\n";
