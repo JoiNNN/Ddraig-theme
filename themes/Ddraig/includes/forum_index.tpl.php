@@ -46,21 +46,18 @@ function replace_forum_row($m) {
 }
 $output = preg_replace_callback($search_forum_row, 'replace_forum_row', $output);
 
-
+$forum_title = $locale['400'];
 if (isset($_GET['latest'])) {
-	$secondary_title = $locale['latest_active_threads'];
+	$forum_title = $locale['latest_active_threads'];
 } else if (isset($_GET['participated'])) {
-	$secondary_title = $locale['participated_threads'];
+	$forum_title = $locale['participated_threads'];
 } else if (isset($_GET['unanswered'])) {
-	$secondary_title = $locale['unanswered_threads'];
-} else {
-	$secondary_title = "";
+	$forum_title = $locale['unanswered_threads'];
 }
-$secondary_title = (!empty($secondary_title) ? " <span class='forum-secondary-title'>(".$secondary_title.")</span>" : "");
 
 // Add the links next to the title (index.php)
 $search_forum_title = "@<span class='title'>".$locale['400']."</span>@i";
-$replace_forum_title = "<span class='title'>".$locale['400']."</span><ul class='findex clearfix'><li><a class='forum-category button small' href='".FUSION_SELF."'>".$locale['all']."</a></li>
+$replace_forum_title = "<span class='title'>".$forum_title."</span><ul class='findex clearfix'><li><a class='forum-category button small' href='".FUSION_SELF."'>".$locale['all']."</a></li>
 <li class='link".(isset($_GET['latest']) ? " active" : "")."'><a class='forum-category button ".(isset($_GET['latest']) ? "active" : "")." small' href='".FUSION_SELF."?latest'>".$locale['latest_active_threads']."</a></li>
 <li class='link".(isset($_GET['participated']) ? " active" : "")."'><a class='forum-category button ".(isset($_GET['participated']) ? "active" : "")." small' href='".FUSION_SELF."?participated'>".$locale['participated_threads']."</a></li>
 <li class='link".(isset($_GET['unanswered']) ? " active" : "")."'><a class='forum-category button ".(isset($_GET['unanswered']) ? "active" : "")." small' href='".FUSION_SELF."?unanswered'>".$locale['unanswered_threads']."</a></li></ul>";
@@ -91,7 +88,6 @@ $output = preg_replace_callback($search_forum_index, 'replace_forum_index', $out
 // Find Latest Topics - The LAFT
 function forum_latest_topics() {
 	$list = array();
-	$list['title'] = "Latest Active Discussions";
 	$list['items_per_page'] = 10;
 	$settings['numofthreads'] = 200;
 
@@ -147,7 +143,6 @@ function forum_participated_topics() {
 	global $userdata;
 	$list = array();
 	$list['items_per_page'] = 10;
-	$list['title'] = "My Participated Discussions";
 
 	$result = dbquery(
 		"SELECT tp.post_id FROM ".DB_POSTS." tp
@@ -196,10 +191,9 @@ function forum_participated_topics() {
 
 // The Unanswered
 function forum_unanswered() {
-	global $userdata;
+
 	$list = array();
 	$list['items_per_page'] = 10;
-	$list['title'] = "Unanswered Threads";
 
 	// rowstart bug fix
 	$list['rows'] = dbcount("('tt.thread_id')",
@@ -239,7 +233,7 @@ function forum_unanswered() {
 
 // The Item Template
 function forum_item($data) {
-	global $userdata, $locale;
+	global $locale;
 
 	// print_r($data);
 	$html = "";
@@ -248,7 +242,7 @@ function forum_item($data) {
 	if (!empty($data['data'])) {
 		$html .= "<table class='forum_table forum_extension tbl-border'>\n";
 		$html .= "<tr><td class='tbl2 forum-caption'>".$locale['451']."</td>\n";
-		$html .= "<td class='forum-caption stats-caption tbl2' style='white-space:nowrap' align='center'>".$locale['454']." / ".$locale['453']."</td>\n";
+		$html .= "<td class='forum-caption stats-caption tbl2' align='center'>".$locale['454']." / ".$locale['453']."</td>\n";
 		$html .= "<td class='forum-caption last-post-caption tbl2'>".$locale['404']."</td>\n</tr>\n";
 		foreach($data['data'] as $arr => $thread_data) {
 			// Thread pages

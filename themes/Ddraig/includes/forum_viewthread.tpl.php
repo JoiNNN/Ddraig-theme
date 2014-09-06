@@ -22,10 +22,10 @@ $search_viewthread = array("@><img src='reply' alt='(.*?)' style='border:0px' />
 $replace_viewforum = array(" class='button big'><span class='reply-button icon'>$1</span>");
 // Website button (viewthread.php)
 $search_viewthread[] .= "@><img src='web' alt='(.*?)' style='border:0;vertical-align:middle' />@i";
-$replace_viewforum[] .= " class='button' rel='nofollow' title='$1'><span class='web-button icon'>Web</span>";
+$replace_viewforum[] .= " class='user-web button' rel='nofollow' title='$1'><span class='web-button icon'>Web</span>";
 // PM button (viewthread.php)
 $search_viewthread[] .= "@><img src='pm' alt='(.*?)' style='border:0;vertical-align:middle' />@i";
-$replace_viewforum[] .= " class='button' title='$1'><span class='pm-button icon'>PM</span>";
+$replace_viewforum[] .= " class='user-pm button' title='$1'><span class='pm-button icon'>PM</span>";
 // Quote button (viewthread.php)
 $search_viewthread[] .= "@><img src='quote' alt='(.*?)' style='border:0px;vertical-align:middle' />@i";
 $replace_viewforum[] .= " class='button' title='$1'><span class='quote-button icon'>$1</span>";

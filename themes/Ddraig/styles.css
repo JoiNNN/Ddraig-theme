@@ -24,6 +24,10 @@ input[type=password] {
 	font-family: Tahoma, sans-serif; /* IE */
 	padding: 6px 2px 6px 6px;
 }
+img {
+	max-width: 100%;
+	height: auto;
+}
 .clearfix:after {
 	content:"";
 	display:block;
@@ -139,7 +143,8 @@ a:hover {color: #e79300;}
 	margin-right: 0;
 }
 .navigation li.home a span {
-	font-size: 0px; /* make the text invisible, negative text-indent doesn't play nice on mobile devices */
+	font-size: 0; /* make the text invisible, negative text-indent doesn't play nice on mobile devices */
+	color: transparent;
 	min-width: 22px;
 	position: relative;
 	top: -9px;
@@ -792,9 +797,11 @@ tr:last-child .preview.expanded {
 	font-weight: bold;
 }
 .forum_thread_ip {
-	white-space: nowrap;
-}
 
+}
+.user-pm {
+	margin-left: 3px;
+}
 .post-edited {
 	background: url(images/comment_edit.png) no-repeat 6px 10px #FFEBC8;
 	border: 1px solid #ECC272;
@@ -908,7 +915,8 @@ tr:last-child .preview.expanded {
 	border-bottom: 12px dashed transparent;
 	display: block;
 	position: absolute;
-	font-size: 0;
+	font: 0/0 a;
+	color: transparent;
 	height: 0;
 	width: 0;
 }
@@ -1323,7 +1331,6 @@ li.poster {
 	display: inline;
 }
 .forum-category {
-	line-height: 10px;
 	vertical-align: middle;
 }
 .online-status {
@@ -1397,6 +1404,9 @@ ul.findex {
 		display: block;
 		margin-right: 4px;
 	}
+	ul.findex li a {
+		padding: 0 10px;
+	}
 	.findex .responsive-menu {
 		position: relative;
 		right: 0;
@@ -1422,7 +1432,6 @@ ul.findex {
 	}
 	.findex .responsive-menu li a {
 		display: block;
-		padding: 4px 10px;
 		text-align: left;
 	}
 	.findex .responsive-menu.active {
@@ -1576,9 +1585,6 @@ ul.navigation {
 }
 
 @media only screen and (max-width: 720px) {
-	img {
-		max-width: 100%;
-	}
 	/* Hide the default avatar on profile page */
 	.profile_user_avatar {
 		display: none;
@@ -1692,7 +1698,6 @@ ul.navigation {
 	}
 	*[style$="nowrap"],
 	*[style$="nowrap;"] {
-		padding: 1px 0 0 2px; 
 		white-space: normal !important;
 	}
 	.panels-page div[style$="230px;"] {
