@@ -32,7 +32,7 @@ $locale['custom_links']		= "Useful Links";
 $locale['scroll_top']		= "Scroll to top";
 
 $locale['tcp_warning']		= "<div class=\'admin-message tcp-warn\'>\n
-<a id=\'tcp-warn\' href=\'".FUSION_SELF."?hidetcpwarning\'></a><strong>Warning:</strong> the Theme Control Panel has not been infused yet.\n
+<a id=\'tcp-warn\' href=\'".BASEDIR."news.php?hidetcpwarning\'></a><strong>Warning:</strong> the Theme Control Panel has not been infused yet.\n
 <br />To infuse it go to infusions by <a href=\'".ADMIN."infusions.php".(isset($aidlink) ? $aidlink : "")."\'>clicking here</a>.\n
 </div>";
 

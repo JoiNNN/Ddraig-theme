@@ -14,6 +14,7 @@
 			hideAll: false,
 			hideOnMouseOut: true
 		};
+
 		// Get custom settings if any
 		settings = $.extend({}, defaults, options);
 		var $s = settings;
@@ -22,7 +23,7 @@
 		var el = $(this); // this object(menu)
 
 		// Monitor for changes
-		$( window ).on('resize orientationchange load', function() {
+		$(window).on('resize orientationchange load', function() {
 			clearTimeout(resizeMenu);
 			resizeMenu = setTimeout(function () {
 				adjustFlexMenu();
@@ -35,6 +36,7 @@
 
 			toggleMenu();
 		});
+
 		// Hide the menu on mouseout
 		if ($s.hideOnMouseOut) {
 			el.find('.responsive-menu').live('mouseleave', function() {
@@ -42,6 +44,7 @@
 			});
 		}
 
+		// Toggles the responsive menu
 		function toggleMenu() {
 			var menu = el.find('.responsive-menu'),
 				menu_ul = el.find('.responsive-menu ul');
@@ -50,6 +53,7 @@
 			$(menu).toggleClass('active');
 		}
 
+		// Adjusts the menu
 		function adjustFlexMenu() {
 			//console.info('*** Adjusting menu for ' + el.attr('class'));
 
@@ -67,6 +71,7 @@
 			if (!el.find('.responsive-menu ul li').length) el.find('.responsive-menu').remove();
 		}
 
+		// Checks if is enough space in the menu
 		function isSpace($check_hidden) {
 			var menuWidth = el.outerWidth();
 			var linksWidth = 20;
@@ -91,6 +96,7 @@
 			}
 		}
 
+		// Adds a link to the responsive menu
 		function addToMenu() {
 			// Check if there is no space in the menu and IF there are links that can be hidden
 			if (($s.hideAll || !isSpace(false)) && el.children('li:visible').not('.responsive-menu').not($s.activeClass).length) {
@@ -107,9 +113,10 @@
 			} else {
 				return;
 			}
-			addToMenu();
+			addToMenu(); // loop
 		}
 
+		// Removes a link from the responsive menu
 		function removeFromMenu() {
 			// Check if there is space in the menu and IF there are links in the responsive menu
 			if (!$s.hideAll && isSpace(true) && el.find('.responsive-menu ul li').length) {
@@ -122,7 +129,7 @@
 			} else {
 				return;
 			}
-			removeFromMenu();
+			removeFromMenu(); // loop
 		}
 
 	}

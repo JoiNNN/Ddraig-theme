@@ -148,7 +148,6 @@ if (!SETTINGS_INSTALLED && checkrights("I")) {
 	});
 	</script>");
 }
-add_to_footer("<script type='text/javascript' src='".THEME."js/jquery.mousewheel.js'></script>");
 add_to_footer("<script type='text/javascript' src='".THEME."js/scrolltopcontrol.js'></script>");
 add_to_footer("<script type='text/javascript'>/*<![CDATA[*/
 	//Header search - area script
@@ -176,7 +175,7 @@ add_to_footer("<script type='text/javascript'>/*<![CDATA[*/
 		}
 	});"
 	//Thread preview script
-	.((THREAD_PREV == 1 && in_array(FUSION_SELF, array("index.php", "viewforum.php"))) ? "
+	.((THREAD_PREV == 1 && INFORUM && in_array(FUSION_SELF, array("index.php", "viewforum.php"))) ? "
 	//Thread preview
 	$('a.preview-link').click(function (e) {
 		e.preventDefault();
