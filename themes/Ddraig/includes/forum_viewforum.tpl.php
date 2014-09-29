@@ -67,7 +67,7 @@ function replace_threadrow($m) {
 	$folder = str_replace('.png', '', $m[4]);
 
 	$html = "<tr class='thread-row ".$folder.($hot ? " thread-hot" : "")."' id='thread_id_".$m[11]."'>\n";
-	$html .= "<td align='center' class='thread-folder-icon tbl2' style='white-space:nowrap'><img src='".$m[3]."/forum/".$m[4]."' alt='".$m[5]."' /></td><td class='thread-name tbl1'>".(isset($m[6]) ? $m[6] : "");
+	$html .= "<td class='thread-folder-icon tbl2'><img src='".$m[3]."/forum/".$m[4]."' alt='".$m[5]."' /></td><td class='thread-name tbl1'>".(isset($m[6]) ? $m[6] : "");
 	$html .= !empty($m[8]) ? "<img src='".$m[9]."/forum/stickythread.png' alt='".$m[10]."' title='".$m[10]."' class='sticky-icon' />" : "";
 	$html .= ($folder == 'folderlock' ? "<span class='tag red'>".$locale['locked']."</span> " : "");
 	$html .= " <a class='thread-title' href='viewthread.php?thread_id=".$m[11]."'>".$m[12]."</a>";

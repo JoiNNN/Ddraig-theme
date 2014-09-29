@@ -1395,6 +1395,12 @@ li.poster {
 .forum-secondary-title {
 	font-weight: normal;
 }
+.forum-folder-icon img,
+.thread-folder-icon img,
+.profile_user_avatar img {
+	text-align: center;
+	max-width: none; /* with responsive image CSS some images get squished in Chrome */
+}
 
 ul.findex {
 	margin: 0;
@@ -1627,9 +1633,6 @@ ul.navigation {
 	}
 	.forum_thread_user_info {
 		padding-right: 0 
-	}
-	img.poll {
-		max-width: 100px !important
 	}
 	.forum_thread_user_info .user-avatar .avatar {
 		width: 80px

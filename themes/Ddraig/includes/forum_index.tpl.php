@@ -34,7 +34,7 @@ function replace_forum_row($m) {
 
 	//var_dump($m);
 	$r = "<tr>";
-	$r .= "<td align='center' width='1%' class='tbl2' style='white-space:nowrap'><img src='".$m[1]."' alt='".$m[2]."' /></td>";
+	$r .= "<td width='1%' class='forum-folder-icon tbl2'><img src='".$m[1]."' alt='".$m[2]."' /></td>";
 	$r .= "<td class='tbl1 forum_name'><!--forum_name-->".$m[3]."<br />";
 	$r .= "<span class='small'>".$m[4]."</span>";
 	$r .= "</td>";
