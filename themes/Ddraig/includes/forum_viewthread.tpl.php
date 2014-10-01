@@ -19,51 +19,51 @@ if (!defined("IN_FUSION")) { die("Access Denied"); }
 
 // Reply button (viewthread.php)
 $search_viewthread = array("@><img src='reply' alt='(.*?)' style='border:0px' />@i");
-$replace_viewforum = array(" class='button big'><span class='reply-button icon'>$1</span>");
+$replace_viewthread = array(" class='button big'><span class='icon-reply'>$1</span>");
 // Website button (viewthread.php)
 $search_viewthread[] .= "@><img src='web' alt='(.*?)' style='border:0;vertical-align:middle' />@i";
-$replace_viewforum[] .= " class='user-web button' rel='nofollow' title='$1'><span class='web-button icon'>Web</span>";
+$replace_viewthread[] .= " class='user-web button' rel='nofollow' title='$1'><span class='icon-globe'>Web</span>";
 // PM button (viewthread.php)
 $search_viewthread[] .= "@><img src='pm' alt='(.*?)' style='border:0;vertical-align:middle' />@i";
-$replace_viewforum[] .= " class='user-pm button' title='$1'><span class='pm-button icon'>PM</span>";
+$replace_viewthread[] .= " class='user-pm button' title='$1'><span class='icon-email'>PM</span>";
 // Quote button (viewthread.php)
 $search_viewthread[] .= "@><img src='quote' alt='(.*?)' style='border:0px;vertical-align:middle' />@i";
-$replace_viewforum[] .= " class='button' title='$1'><span class='quote-button icon'>$1</span>";
+$replace_viewthread[] .= " class='button' title='$1'><span class='icon-quote-left'>$1</span>";
 // Edit button (viewthread.php)
 $search_viewthread[] .= "@><img src='forum_edit' alt='(.*?)' style='border:0px;vertical-align:middle' />@i";
-$replace_viewforum[] .= " class='negative button' title='$1'><span class='edit-button icon'>$1</span>";
+$replace_viewthread[] .= " class='negative button' title='$1'><span class='icon-pencil'>$1</span>";
 // Move posts button (viewthread.php)
 $search_viewthread[] .= "@<input (.*?) name='move_posts' value='(.*?)' (.*?) />@i";
-$replace_viewforum[] .= "<button $1 name='move_posts' $3><span class='move-button icon'>$2</span></button>&nbsp;";
+$replace_viewthread[] .= "<button $1 name='move_posts' $3><span class='icon-move'>$2</span></button>&nbsp;";
 // User avatar in forum (viewthread.php)
-$search_viewthread[] .= "@forum_thread_user_info' style='width:140px'>\n<img src='(.*?)' alt='(.*?)' />@i";
-$replace_viewforum[] .= "forum_thread_user_info'><div class='user-avatar'><img class='avatar' src='$1' alt='$2' /></div>";
+//$search_viewthread[] .= "@forum_thread_user_info' style='width:140px'>\n<img src='(.*?)' alt='(.*?)' />@i";
+//$replace_viewthread[] .= "forum_thread_user_info'><div class='user-avatar'><img class='avatar' src='$1' alt='$2' /></div>";
 // User IP in forum (viewthread.php)
 $search_viewthread[] .= "@forum_thread_ip' style='width:140px;white-space:nowrap'>@si";
-$replace_viewforum[] .= "forum_thread_ip'>";
+$replace_viewthread[] .= "forum_thread_ip'>";
 // Space between forum posts (viewthread.php)
 $search_viewthread[] .= "@<td colspan='2' class='tbl1 forum_thread_post_space' style='height:10px'></td>@i";
-$replace_viewforum[] .= "<td colspan='2' class='tbl1 forum_thread_post_space'></td>";
+$replace_viewthread[] .= "<td colspan='2' class='tbl1 forum_thread_post_space'></td>";
 // Edit note in threads (viewthread.php)
 $search_viewthread[] .= "@<hr />\n<span class='small'>(.*?)</span>@i";
-$replace_viewforum[] .= "<br /><div class='post-edited small'>$1</div>";
+$replace_viewthread[] .= "<br /><div class='post-edited small'>$1</div>";
 // Edit reason (viewthread.php)
 $search_viewthread[] .= "@</div>\n<br /><div class='edit_reason'>(.*?)</div>@si";
-$replace_viewforum[] .= "<div class='edit_reason'>$1</div></div>";
+$replace_viewthread[] .= "<div class='edit_reason'>$1</div></div>";
 // Forum posts wrapper (viewthread.php)
 $search_viewthread[] .= "@<tr>\n<td class='tbl2 forum_thread_user_name'@i";
-$replace_viewforum[] .= "<tr class='forum-post'><td><table width='100%' cellspacing='0' cellpadding='0' class='forum-post-table'><tr><td class='tbl2 forum_thread_user_name'";
+$replace_viewthread[] .= "<tr class='forum-post'><td><table width='100%' cellspacing='0' cellpadding='0' class='forum-post-table'><tr><td class='tbl2 forum_thread_user_name'";
 $search_viewthread[] .= "@<!--forum_thread_userbar-->(.*?)\n</div>\n</td>\n</tr>\n@si";
-$replace_viewforum[] .= "<!--forum_thread_userbar-->$1</div></td></tr></table></td></tr>";
+$replace_viewthread[] .= "<!--forum_thread_userbar-->$1</div></td></tr></table></td></tr>";
 
-$output = preg_replace($search_viewthread, $replace_viewforum, $output);
+$output = preg_replace($search_viewthread, $replace_viewthread, $output);
 
-// Add online indicator next to the username
-$search_poster = "@<!--forum_thread_user_name--><a href='\.\./profile.php\?lookup=(.*?)' class='profile-link'>(.*?)</a>@i";
+// Add online indicator next to the avatar
+$search_poster = "@<td class='tbl2 forum_thread_user_name'(.*?)><!--forum_thread_user_name--><a href='\.\./profile.php\?lookup=([0-9]+)'(.*?)?<img src='\.\./images/avatars/(.*?)' alt='".$locale['567']."' />@si";
 function replace_poster($m) {
 	global $locale;
 
-	return "<!--forum_thread_user_name--><a href='".BASEDIR."profile.php?lookup=".$m['1']."' class='profile-link'>".$m['2']."</a> ".(is_online($m['1']) ? "<span class='online-status tag green' title='".$locale['online']."'> </span>" : "");
+	return "<td class='tbl2 forum_thread_user_name icon-user'".$m['1']."><!--forum_thread_user_name--><a href='".BASEDIR."profile.php?lookup=".$m['2']."'".$m['3'].(is_online($m['2']) ? "<span class='online-status tag green' title='".$locale['online']."'> </span>" : "")."<div class='user-avatar'><img class='avatar' src='../images/avatars/".$m['4']."' alt='".$locale['567']."' /></div>";
 }
 $output = preg_replace_callback($search_poster, 'replace_poster', $output, 20); // occurs 20 max
 

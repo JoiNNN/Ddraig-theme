@@ -25,13 +25,13 @@ if (isset($_GET['hidetcpwarning'])) {
 
 set_image("pollbar", THEME."images/btn.png");
 set_image("edit", THEME."images/edit.png");
-set_image("printer", THEME."images/printer.png");
+set_image("printer", THEME."images/printer.png' class='print-item");
 set_image("link", THEME."images/link.png");
 // Arrows
-set_image("up", THEME."images/up.png");
-set_image("down", THEME."images/down.png");
-set_image("left", THEME."images/left.png");
-set_image("right", THEME."images/right.png");
+set_image("up", THEME."images/up.png' class='up-arrow");
+set_image("down", THEME."images/down.png' class='down-arrow");
+set_image("left", THEME."images/left.png' class='left-arrow");
+set_image("right", THEME."images/right.png' class='right-arrow");
 // Forum folders icons
 set_image("folder", THEME."forum/folder.png");
 set_image("foldernew", THEME."forum/foldernew.png");
@@ -79,14 +79,15 @@ function theme_output($output) {
 		"@<a href='".ADMIN."comments.php(.*?)&amp;ctype=(.*?)&amp;cid=(.*?)'>(.*?)</a>@si", 		// Manage comments button
 		"@<div class='quote'><a (.*?)><strong>(.*?)</strong></a>(<br />)?@si",						// Quote
 		"@<span class='small' style='font-weight:bold'>\[".$locale['global_051']."\]</span>@i",		// Poll thread text (forum_threads_list panel)
+		"@<img src='(.*)' class='print-item' alt='(.*?)' title='(.*?)' style='border:0;vertical-align:middle' />@i"
 	);
 	$replace_site = array(
 		"<body class='".((INFORUM ? "inforum " : ((defined('ADMINPANEL') && ADMINPANEL) ? "adminpanel " : "")).str_replace(array('_', '.php'), array('-', ''), FUSION_SELF))."-page ".(iMEMBER ? "user-member" : "user-guest")."'>",
-		"<a href='".ADMIN."comments.php$1&amp;ctype=$2&amp;cid=$3' class='big button flright'><span class='settings-button icon'>$4</span></a>",
+		"<a href='".ADMIN."comments.php$1&amp;ctype=$2&amp;cid=$3' class='big button flright'><span class='icon-cog'>$4</span></a>",
 		"<div class='quote extended'><p class='citation'><img src='".THEME."images/quote_icon.png' alt='>' /><a $1><strong>$2</strong></a></p>",
 		"<span class='tag blue small'>".$locale['global_051']."</span>",
+		"<span class='print-item icon-print' title='$2'></span>",
 	);
-	$output = preg_replace($search_site, $replace_site, $output);
 
 	if (FUSION_SELF == "profile.php") {
 		include_once THEME."includes/profile.tpl.php"; // not required, include just once
@@ -106,8 +107,8 @@ function theme_output($output) {
 		"@<input (.*?) name='(delete_posts|delete_threads)' value='(.*?)' class='(.*?)' (.*?) />@i",// Delete posts button (viewforum.php|viewthread.php)
 		);
 		$replace_forum = array(		
-		" class='button big'><span class='newthread-button icon'>$1</span>",
-		"<button $1 class='$4 negative' name='$2' $5><span class='del-button icon'>$3</span></button>",	
+		" class='button big'><span class='icon-plus-circle'>$1</span>",
+		"<button $1 class='$4 negative' name='$2' $5><span class='icon-trash'>$3</span></button>",	
 		);
 		$output = preg_replace($search_forum, $replace_forum, $output);
 
@@ -146,7 +147,7 @@ function theme_output($output) {
 					$r .= "<div class='forum-titlebar tbl-border clearfix'>";
 					$r .= "<h1>".$fdata['forum_name']."</h1>";
 					$r .= "<p class='forum-description faint flleft'>".nl2br(parseubb($fdata['forum_description']))."</p>";
-					$r .= "<div class='forum-counts faint small flright'>".sprintf($locale['threads_and_posts'], $fdata['forum_postcount'], $fdata['forum_threadcount'])."</div>";
+					$r .= "<div class='forum-counts faint flright'><strong class='icon-chat'>".$fdata['forum_threadcount']."</strong> ".$locale['402']." <strong class='icon-reply-all'>".$fdata['forum_postcount']."</strong> ".$locale['403']."</div>";
 					$r .= "</div>";
 				}
 			// Thread details and stats
@@ -192,7 +193,7 @@ function theme_output($output) {
 					$r .= "&nbsp;<a href='".BASEDIR."print.php?type=F&amp;thread=".$_GET['thread_id']."&amp;rowstart=".$_GET['rowstart']."'><img src='".get_image("printer")."' alt='".$locale['519']."' title='".$locale['519']."' style='border:0;vertical-align:middle' /></a>\n";
 					$r .= "</span></h1>";
 					$r .= "<p class='thread-starter flleft'>".sprintf($locale['started_by']." ", profile_link($pdata['post_author'], $pdata['user_author'], $pdata['status_author']), $locale['on'], showdate("forumdate", $pdata['post_datestamp']))."</p>";
-					$r .= "<span class='thread-counts faint small flright'>".sprintf($locale['posts_and_views'], $pdata['thread_postcount'], $pdata['thread_views'])."</span>";
+					$r .= "<div class='thread-counts faint flright'><strong class='icon-reply-all'>".($pdata['thread_postcount'] - 1)."</strong> ".$locale['454']." <strong class='icon-eye'>".$pdata['thread_views']."</strong> ".$locale['453']."</div>";
 					$r .= "</div></div>\n";
 				}
 			}
@@ -200,6 +201,8 @@ function theme_output($output) {
 		}
 		$output = preg_replace_callback($search_breadcrumb, 'replace_breadcrumb', $output, 1); // occurs only once
 	}
+
+	$output = preg_replace($search_site, $replace_site, $output);
 
 	return $output;
 }

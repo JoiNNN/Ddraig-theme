@@ -65,15 +65,16 @@ function replace_threadrow($m) {
 
 	$id = (!empty($m[24]) ? $m[24] : null);
 	$folder = str_replace('.png', '', $m[4]);
+	$sticky = (isset($m[10]) && !empty($m[10])) ? "sticky-thread " : "";
 
-	$html = "<tr class='thread-row ".$folder.($hot ? " thread-hot" : "")."' id='thread_id_".$m[11]."'>\n";
+	$html = "<tr class='thread-row ".$sticky.$folder.($hot ? " thread-hot" : "")."' id='thread_id_".$m[11]."'>\n";
 	$html .= "<td class='thread-folder-icon tbl2'><img src='".$m[3]."/forum/".$m[4]."' alt='".$m[5]."' /></td><td class='thread-name tbl1'>".(isset($m[6]) ? $m[6] : "");
-	$html .= !empty($m[8]) ? "<img src='".$m[9]."/forum/stickythread.png' alt='".$m[10]."' title='".$m[10]."' class='sticky-icon' />" : "";
+	$html .= !empty($m[8]) ? "<i title='".$m[10]."' class='icon-pin sticky-icon'></i>" : "";
 	$html .= ($folder == 'folderlock' ? "<span class='tag red'>".$locale['locked']."</span> " : "");
 	$html .= " <a class='thread-title' href='viewthread.php?thread_id=".$m[11]."'>".$m[12]."</a>";
 	$html .= $hot ? "<span class='tag orange flright'>".$locale['hot']."</span>" : "";
 	$html .= "<br /><span class='thread-starter small'>".sprintf($locale['started_by']." ", (!empty($m[16]) ? "<a href='".BASEDIR."profile.php?lookup=".$m[16]."' class='profile-link'>".$m[17]."</a>" : $m[15]), "","")."</span>";
-	$html .= ((THREAD_PREV == 1) ? "<a title='".$locale['prev_thread']."' class='preview-link expand flright' href='viewthread.php?thread_id=".$m[11]."'></a>" : "");
+	$html .= ((THREAD_PREV == 1) ? "<a title='".$locale['prev_thread']."' class='preview-link icon-list expand flright' href='viewthread.php?thread_id=".$m[11]."'></a>" : "");
 	$html .= (!empty($m[14]) ? " <span class='pages small'>".$m[14]."</span>" : "");
 	$html .= "<span class='thread-stats-responsive faint small'><br />".$locale['global_046'].": <span class='darker'>".$m[20]."</span> / ".$locale['global_045'].": <span class='darker'>".$m[19]."</span></span></td>\n";
 	$html .= "<td class='thread-stats tbl1'><dl class='major'><dt>".$locale['global_046'].": </dt><dd>".$m[20]."</dd></dl><dl class='minor small'><dt>".$locale['global_045'].": </dt><dd>".$m[19]."</dd></dl></td>\n";

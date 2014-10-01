@@ -270,7 +270,7 @@ function forum_item($data) {
 			$html .= ($thread_data['thread_locked'] == 1 ? "<span class='tag red'>".$locale['locked']."</span> " : "");
 			$html .= ($thread_data['thread_poll'] == 1 ? "<span class='tag blue'>".$locale['global_051']."</span> " : "");
 			$html .= "<a class='thread-title' href='".FORUM."viewthread.php?thread_id=".$thread_data['thread_id']."&amp;pid=".$thread_data['thread_lastpostid']."#post_".$thread_data['thread_lastpostid']."'>".$thread_data['thread_subject']."</a>\n";
-			$html .= ((THREAD_PREV == 1) ? "<a title='".$locale['prev_thread']."' class='preview-link expand flright' href='".FORUM."viewthread.php?thread_id=".$thread_data['thread_id']."'></a><br />" : "")."\n";
+			$html .= ((THREAD_PREV == 1) ? "<a title='".$locale['prev_thread']."' class='preview-link icon-list expand flright' href='".FORUM."viewthread.php?thread_id=".$thread_data['thread_id']."'></a><br />" : "")."\n";
 			$html .= "<span class='thread-starter small'>".sprintf($locale['started_by']." ", profile_link($thread_data['author_id'], $thread_data['author_name'], $thread_data['author_status']), $locale['in'], "<a href='".FORUM."viewforum.php?forum_id=".$thread_data['forum_id']."'>".$thread_data['forum_name']."</a>")."</span>\n";
 			$html .= "<span class='thread-stats-responsive faint small'><br />".$locale['global_046'].": <span class='darker'>".number_format($thread_data['thread_postcount']-1)."</span> / ".$locale['global_045'].": <span class='darker'>".number_format($thread_data['thread_views'])."</span></span>";
 			$html .= $thread_pages."</td>\n";

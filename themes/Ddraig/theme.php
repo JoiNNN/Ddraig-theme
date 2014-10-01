@@ -186,30 +186,31 @@ add_to_footer("<script type='text/javascript'>/*<![CDATA[*/
 			thid	= $('#thid' + trgt),
 			preview = '".$locale['prev_thread']."',
 			close_preview = '".$locale['close_prev']."';
+
 		//Closing the preview
 		if (thid.hasClass('expanded')) {
 			thid.children('div').stop(true, true).slideToggle('fast');
 			thid.removeClass('expanded');
 			thistr.removeClass('previewing');
-			el.removeClass('close').addClass('expand').attr('title', preview);
+			el.toggleClass('icon-list icon-cancel expand close').attr('title', preview);
 		//Expanding the preview after was loaded
 		} else if (thid.hasClass('loaded') && !thid.hasClass('expanded')) {
 			thid.children('div').stop(true, true).slideToggle('fast');
 			thid.addClass('expanded');
 			thistr.addClass('previewing');
-			el.removeClass('expand').addClass('close').attr('title', close_preview);
+			el.toggleClass('icon-list icon-cancel expand close').attr('title', close_preview);
 		//Loading and expanding the preview
 		} else if(!el.hasClass('loading')) {
-			el.removeClass('expand').addClass('loading');
+			el.toggleClass('icon-list icon-arrows-cw animate-spin expand loading');
 			$.ajax({url:'".THEME."includes/thread_preview.inc.php?thread_id=' + trgt,
 				success: function(result){
 					thistr.after('<tr><td id=\'thid' + trgt + '\' class=\'preview expanded loaded\' colspan=\'4\'>' + result + '<\/td><\/tr>');
 					thistr.addClass('previewing');
-					el.removeClass('loading').addClass('close').attr('title', close_preview);
+					el.toggleClass('icon-arrows-cw animate-spin icon-cancel close loading').attr('title', close_preview);
 					$('#thid' + trgt).children('div').stop(true, true).slideToggle('fast');
   				},
 				error: function () {
-					el.removeClass('loading').addClass('expand');
+					el.toggleClass('icon-arrows-cw animate-spin icon-list expand loading');
 				}
 			});
 		}
@@ -275,7 +276,7 @@ global $locale, $settings;
 
 	//Read more button
 	if (!isset($_GET['readmore']) && $info['news_ext'] == "y") {
-		echo "<div class='readmore flright'><a href='".BASEDIR."news.php?readmore=".$info['news_id']."' class='button'><span class='rightarrow icon'>".$locale['global_072']."</span></a></div>\n";
+		echo "<div class='readmore flright'><a href='".BASEDIR."news.php?readmore=".$info['news_id']."' class='button'><span class='icon-right'>".$locale['global_072']."</span></a></div>\n";
 	}
 	echo "<!--news_id-".$info['news_id']."_end-->";
 	closetable();

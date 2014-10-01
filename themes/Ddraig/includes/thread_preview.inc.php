@@ -125,7 +125,7 @@ if ((!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || (strtolower($_SERVER['HTTP_X_R
 				echo "<div class='preview-text'><span class='post-info'>".profilelink($postdatal['post_author'], $data['user_name'])." ".$locale['made']." <a href='viewthread.php?thread_id=".$postdatal['thread_id']."&amp;pid=".$postdatal['post_id']."#post_".$postdatal['post_id']."'>".$locale['last']."</a></span><hr style='margin:0' />".trimlink(stripBBCode(strip_bbcodes($postdatal['post_message'])), 450)."</div>";
 			}
 			echo "<br />";
-			echo "<div><a href='viewthread.php?thread_id=".$_GET['thread_id']."' class='button'><span class='rightarrow icon'>".$locale['view_thread']."</span></a></div>\n";
+			echo "<div><a href='viewthread.php?thread_id=".$_GET['thread_id']."' class='button'><span class='icon-right'>".$locale['view_thread']."</span></a></div>\n";
 			echo "</div>";
 		}
 	} else {

@@ -65,8 +65,6 @@ $locale['started_by']		= "Started by %s %s %s"; // position swaping is possible,
 $locale['on']				= "on"; // as in "posted *on* some date"
 $locale['in']				= "in";
 $locale['go_to_last_post']	= "Go to last post";
-$locale['threads_and_posts']= "There are <strong>%d</strong> posts in <strong>%d</strong> threads";
-$locale['posts_and_views']	= "There are <strong>%d</strong> posts in this thread and it was viewed <strong>%d</strong> times";
 
 $locale['online']				= "Online";
 $locale['offline']				= "Offline";
