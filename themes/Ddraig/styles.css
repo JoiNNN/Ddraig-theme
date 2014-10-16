@@ -1192,10 +1192,21 @@ input[type=submit]:active {
 .tag.blue {background-color: #178eea;}
 .tag.gray {background-color: #9a9a9a;}
 
-h1.maincap .tag,
-h2.panelcap .tag {
-	margin-top: 3px;
+.breaking-news {
+	margin-top: -4px;
+	padding-top: 2px;
+	padding-bottom: 2px;
 }
+.sticky-news:before {
+	width: 8px;
+}
+.post .title a {
+	color: #000;
+}
+h2.panelcap .tag {
+	margin-top: 2px;
+}
+
 .ht-link { position: relative; }
 .ht-reply {
 	position: absolute;

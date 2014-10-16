@@ -75,4 +75,8 @@ $locale['unanswered_threads']	= "Unanswered Threads";
 $locale['no_threads_available']	= "There are no threads available now.";
 $locale['who_posted']			= "Who posted";
 $locale['hot']					= "Hot";
+
+// News
+$locale['breaking_news']	= "Breaking News";
+$locale['sticky']			= "Sticky  News";
 ?>

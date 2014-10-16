@@ -38,10 +38,6 @@ function get_head_tags(){
 if (function_exists("add_handler")) {
 	add_handler("theme_output"); 
 }
-
-function render_page($license=false) {
-global $aidlink, $locale, $settings, $main_style, $setting;
-
 //Check for locale
 if (file_exists(THEME."locale/".$settings['locale'].".php")) {
 	include THEME."locale/".$settings['locale'].".php";
@@ -49,12 +45,15 @@ if (file_exists(THEME."locale/".$settings['locale'].".php")) {
 	include THEME."locale/English.php";
 }
 
-add_to_head("<meta name='viewport' content='width=device-width, initial-scale=1.0' />");
-//Open Sans font
-add_to_head("<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />");
+function render_page($license=false) {
+	global $aidlink, $locale, $settings, $main_style, $setting;
 
-//Header
-$links = showsublinks("","link");
+	add_to_head("<meta name='viewport' content='width=device-width, initial-scale=1.0' />");
+	//Open Sans font
+	add_to_head("<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />");
+
+	//Header
+	$links = showsublinks("","link");
 	//Home link as icon
 	if (HOME_AS_ICON == 1) {
 		$links = preg_replace("#(<li class=')link( first-link)?( current-link)?('><a href=')(\.\./|\.\./\.\./)?(".$settings['opening_page']."|index.php)?('.*)#si", "$1link home$2$4$5$6$7", $links, 1);
@@ -98,7 +97,7 @@ $links = showsublinks("","link");
 	echo (LEFT ? "<div id='side-border-left' class='sides flleft'>\n".LEFT."</div>\n" : "");
 	echo (RIGHT ? "<div id='side-border-right' class='sides flright'>\n".RIGHT."</div>\n" : "");
 
-//Main structure
+	//Main structure
 	echo "<div id='main-bg'><div id='container'>";
 	echo (U_CENTER ? "<div class='upper-block'>".U_CENTER."</div>" : "");
 	echo "<div class='main-block'>".CONTENT."</div>";
@@ -107,7 +106,7 @@ $links = showsublinks("","link");
 
 	echo "</div>\n";
 
-//Footer
+	//Footer
 	echo "<div id='footer'>";
 	//Scroll to top link
 	echo "<div class='scroll-top center'><a href='#header' id='top-link' class='scroll clean' title='".$locale['scroll_top']."'><span>".$locale['scroll_top']."</span></a></div>";
@@ -128,28 +127,28 @@ $links = showsublinks("","link");
 	echo "<div class='flright text-right' style='width: 50%;'>".showcounter()."</div>";
 	echo "</div></div></div>\n";
 
-//Show warning if Theme Control Panel is not infused and if user has access to Infusions
-if (!SETTINGS_INSTALLED && checkrights("I")) {
-	//Render the warning
-	if (!isset($_COOKIE[COOKIE_PREFIX.'tcpnotice'])) {
-		replace_in_output("<!--error_handler-->", "<!--error_handler-->".$locale['tcp_warning']);
-	}
-	//Message close script
-	add_to_footer("<script type='text/javascript'>
-	$('#tcp-warn').click( function(e) {
-		e.preventDefault();
+	//Show warning if Theme Control Panel is not infused and if user has access to Infusions
+	if (!SETTINGS_INSTALLED && checkrights("I")) {
+		//Render the warning
+		if (!isset($_COOKIE[COOKIE_PREFIX.'tcpnotice'])) {
+			replace_in_output("<!--error_handler-->", "<!--error_handler-->".$locale['tcp_warning']);
+		}
+		//Message close script
+		add_to_footer("<script type='text/javascript'>
+		$('#tcp-warn').click( function(e) {
+			e.preventDefault();
 
-		$.get(this.href);
-		$('.tcp-warn').fadeTo('slow',0.01,function(){
-			$(this).slideUp('slow',function(){
-				$(this).hide()
+			$.get(this.href);
+			$('.tcp-warn').fadeTo('slow',0.01,function(){
+				$(this).slideUp('slow',function(){
+					$(this).hide()
+				});
 			});
 		});
-	});
-	</script>");
-}
-add_to_footer("<script type='text/javascript' src='".THEME."js/scrolltopcontrol.js'></script>");
-add_to_footer("<script type='text/javascript'>/*<![CDATA[*/
+		</script>");
+	}
+	add_to_footer("<script type='text/javascript' src='".THEME."js/scrolltopcontrol.js'></script>");
+	add_to_footer("<script type='text/javascript'>/*<![CDATA[*/
 	//Header search - area script
 	$('#search_area').click( function() {
 		$(this).fadeTo('slow',0,function(){
@@ -217,38 +216,52 @@ add_to_footer("<script type='text/javascript'>/*<![CDATA[*/
 	});" : "")."
 	/*]]>*/
 	</script>");
-add_to_footer("<script type='text/javascript' src='".THEME."js/flexmenu.js'></script>
-<script type='text/javascript'>
-$('.navigation').flexMenu({'activeClass' : '.current-link'});
-$('.findex').flexMenu({'hideAll' : true, 'activeClass' : '.none', 'hideOnMouseOut' : false});
-</script>");
-//Relative time script
-if (REL_TIME == 1) {
-	add_to_footer("<script type='text/javascript' src='".THEME."js/relative-date.js'></script>");
-	add_to_footer("<script type='text/javascript'>/*<![CDATA[*/
-	var timenow = '".(iMEMBER ? showdate("longdate", time()) : strftime($settings['longdate'], (time())+($settings['serveroffset']*3600)))."';
-	$('".REL_TIME_EL."').toRelativeTime(".(($settings['locale'] != "English" && file_exists(THEME."locale/".$settings['locale'].".php")) ? "{
-	'seconds': '".$locale['seconds']."',
-	'minute': '".$locale['minute']."',
-	'minutes': '".$locale['minutes']."',
-	'today': '".$locale['today']."',
-	'yesterday': '".$locale['yesterday']."',
-	'thisWeek': '".$locale['thisWeek']."',
-	'other': '".$locale['other']."',
-	'monthNames': ".$locale['monthNames'].",
-	'monthNamesShort': ".$locale['monthNamesShort'].",
-	'dayNames': ".$locale['dayNames'].",
-	'dayNamesShort': ".$locale['dayNamesShort']."
-	}" : "").");
-	/*]]>*/
-	</script>");
-}
 
+	add_to_footer("<script type='text/javascript' src='".THEME."js/flexmenu.js'></script>
+	<script type='text/javascript'>
+	$('.navigation').flexMenu({'activeClass' : '.current-link'});
+	$('.findex').flexMenu({'hideAll' : true, 'activeClass' : '.none', 'hideOnMouseOut' : false});
+	</script>");
+	//Relative time script
+	if (REL_TIME == 1) {
+		add_to_footer("<script type='text/javascript' src='".THEME."js/relative-date.js'></script>");
+		add_to_footer("<script type='text/javascript'>/*<![CDATA[*/
+		var timenow = '".(iMEMBER ? showdate("longdate", time()) : strftime($settings['longdate'], (time())+($settings['serveroffset']*3600)))."';
+		$('".REL_TIME_EL."').toRelativeTime(".(($settings['locale'] != "English" && file_exists(THEME."locale/".$settings['locale'].".php")) ? "{
+		'seconds': '".$locale['seconds']."',
+		'minute': '".$locale['minute']."',
+		'minutes': '".$locale['minutes']."',
+		'today': '".$locale['today']."',
+		'yesterday': '".$locale['yesterday']."',
+		'thisWeek': '".$locale['thisWeek']."',
+		'other': '".$locale['other']."',
+		'monthNames': ".$locale['monthNames'].",
+		'monthNamesShort': ".$locale['monthNamesShort'].",
+		'dayNames': ".$locale['dayNames'].",
+		'dayNamesShort': ".$locale['dayNamesShort']."
+		}" : "").");
+		/*]]>*/
+		</script>");
+	}
 }
 
 //Render News
 function render_news($subject, $news, $info) {
 global $locale, $settings;
+	// Title as link to extended news
+	$subject = preg_replace("/<a name='news_([0-9]+)' id='news_([0-9]+)'><\/a>/i", '', $subject);
+	if (!isset($_GET['readmore'])) {
+		$subject = "<a href='".BASEDIR."news.php?readmore=".$info['news_id']."'>".$subject."</a>";
+	}
+	// Breaking news
+	$breaking_news_time = 60*60; // 1 hour
+	if (time()-$info['news_date'] < $breaking_news_time) {
+		$subject = "<span class='breaking-news tag big red'>".$locale['breaking_news']."</span> ".$subject;
+	}
+	// Sticky news
+	if ($info['news_sticky'] == 1) {
+		$subject = "<i class='sticky-news icon-pin' title='".$locale['sticky']."'></i> ".$subject;
+	}
 	opentable($subject, "post", $info, "N");
 	echo "<ul class='item-info news-info clearfix'>\n";
 	//Author

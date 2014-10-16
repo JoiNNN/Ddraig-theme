@@ -18,6 +18,7 @@ if (target_offset && !clean) {
 // On click
 $(".scroll").click(function(e){
 	e.preventDefault();
+	e.stopPropagation();
 
 	var hash = $(this).prop("hash"),
 		target_offset = $(hash).offset(),
@@ -27,7 +28,6 @@ $(".scroll").click(function(e){
 	if(!$(this).hasClass("clean")) {
 		window.location.hash = hash;
 	}
-
 });
 
 // Stop scrolling if mousewheel or clicks are hit
