@@ -45,7 +45,7 @@ $locale['tcp_winter_des'] 	= "This will add some winter styling to the theme";
 $locale['tcp_th_prev'] 		= "Thread preview:";
 $locale['tcp_th_prev_des'] 	= "While viewing a forum adds the option to preview the first and the last post within a thread";
 $locale['tcp_rel_date']		= "Pretty date and time:";
-$locale['tcp_rel_date_des']	= "Convert normal dates to human readable date and time";
+$locale['tcp_rel_date_des']	= "Convert normal dates to human readable date and time<br />Element has to contain a string representing an <a title='View details' href='http://tools.ietf.org/html/rfc2822#page-14' target='_blank' class='external external-icon'>RFC2822</a> or ISO 8601 date. <a title='More Info' href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse' target='_blank' class='external external-icon'>More info...</a>";
 $locale['tcp_ftr_links']	= "Footer links:";
 $locale['tcp_ftr_links_des']= "Set what links sections to display in footer";
 $locale['tcp_latest_n']		= "Latest News";
