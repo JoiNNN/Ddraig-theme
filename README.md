@@ -1,5 +1,8 @@
-Ddraig Theme v1.0.2
+﻿DISCLAIMER
 ============
+This theme and code is no longer maintained and no support will be further provided.
+
+
 Ddraig theme for PHP-Fusion 7.02.05+
 -----------------------------------
 
